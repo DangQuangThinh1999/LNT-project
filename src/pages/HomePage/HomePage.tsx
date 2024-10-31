@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import "./styled.scss";
 
 const HomePage = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div className="container"></div>;
+};
 
-export default HomePage
+export default HomePage;

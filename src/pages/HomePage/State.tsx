@@ -1,5 +1,7 @@
+import "./styled.scss";
+
 const State = () => {
-  return <div></div>;
+  return <div className="container"></div>;
 };
 
 export default State;
