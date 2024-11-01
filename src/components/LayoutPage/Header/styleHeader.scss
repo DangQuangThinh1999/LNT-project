@@ -1,0 +1,26 @@
+#header {
+  width: 100%;
+
+  .ant-menu-item-selected {
+    background-color: #3772ff !important;
+    color: white !important;
+  }
+  .btn-mode {
+    height: 50px;
+    width: 50px;
+  }
+  .ant-menu-item-active {
+    background-color: #3772ff !important;
+    color: white !important;
+  }
+  :where(.css-dev-only-do-not-override-apn68).ant-menu-light.ant-menu-horizontal
+    > .ant-menu-item:hover::after {
+    border-bottom: none;
+  }
+  .img-header {
+    height: 50px;
+  }
+  button {
+    border: none;
+  }
+}

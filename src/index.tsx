@@ -1,24 +1,17 @@
 import React from "react";
-import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage";
+import { RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "about",
-    element: <div>About</div>,
-  },
-]);
+import { RecoilRoot } from "recoil";
+import reportWebVitals from "./reportWebVitals";
+import { router } from "./router";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RecoilRoot>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   </React.StrictMode>
 );
 

@@ -1,0 +1,19 @@
+.unit-text {
+  margin: 0 !important;
+  color: gray !important;
+}
+.amount-text {
+  font-weight: 700 !important;
+  line-height: 1.2rem;
+  font-size: 24px !important;
+}
+.shadow-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.shadow-card.active {
+  box-shadow: 0 2px 50px rgba(0, 0, 0, 0.1);
+}
