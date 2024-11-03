@@ -5,12 +5,25 @@ import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./router";
+import { ConfigProvider } from "antd";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <RouterProvider router={router} />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#3772FF",
+            colorBgBase: "#FFFFFF",
+            colorFillSecondary: "#777E90",
+            fontFamily: "DM Sans",
+            colorPrimaryHover: "#2E72D2",
+          },
+        }}
+      >
+        <RouterProvider router={router} />
+      </ConfigProvider>
     </RecoilRoot>
   </React.StrictMode>
 );
