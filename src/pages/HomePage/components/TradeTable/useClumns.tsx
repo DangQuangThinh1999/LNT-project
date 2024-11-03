@@ -1,5 +1,6 @@
 import { StarFilled, StarOutlined } from "@ant-design/icons";
 import { Button, Flex } from "antd";
+import { ColumnsType } from "antd/es/table";
 import { useState } from "react";
 import { LineChart } from "./LineChart";
 const StarChecked = () => {
@@ -49,11 +50,13 @@ export const useColumns = () => {
       key: "checked",
       dataIndex: "checked",
       render: () => <StarChecked />,
+      align: "left",
     },
     {
       title: "#",
       dataIndex: "rank",
       key: "rank",
+      align: "left",
     },
     {
       title: "Name",
@@ -69,11 +72,13 @@ export const useColumns = () => {
           <p>{text}</p>
         </Flex>
       ),
+      align: "left",
     },
     {
       title: "Last Price",
       dataIndex: "lastPrice",
       key: "lastPrice",
+      align: "left",
     },
     {
       title: "24h %",
@@ -84,11 +89,13 @@ export const useColumns = () => {
           {text >= 0 ? `+${text}%` : `${text}%`}
         </span>
       ),
+      align: "left",
     },
     {
       title: "Market Cap",
       dataIndex: "marketCap",
       key: "marketCap",
+      align: "left",
     },
 
     {
@@ -97,12 +104,14 @@ export const useColumns = () => {
       render: (text: any, record: any) => (
         <LineChart isNegative={record.change24h > 0 ? false : true} />
       ),
+      align: "left",
       width: 200,
     },
     {
       title: "",
       key: "action",
       render: () => <Button>Trade</Button>,
+      align: "left",
     },
-  ];
+  ] as ColumnsType;
 };
