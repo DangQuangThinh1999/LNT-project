@@ -1,0 +1,36 @@
+.contactInfo {
+  .create-account {
+    background: linear-gradient(135deg, #5f4bd3, #6c63ff),
+      url("../../../../../public/Banner/contact-info.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 34px 0;
+    padding: 50px;
+  }
+  .contact-dark {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #18191d;
+    z-index: -1;
+  }
+  .contact-light {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        0deg,
+        rgba(102, 99, 228, 0.2),
+        rgba(102, 99, 228, 0.2)
+      ),
+      rgba(39, 59, 239, 0.8);
+    z-index: -1;
+  }
+}
