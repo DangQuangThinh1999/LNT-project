@@ -10,13 +10,12 @@ const ContactInfo = () => {
       <Flex
         justify="space-between"
         wrap
-        className="create-account"
+        className={`create-account ${
+          theme === "dark" ? "contact-dark" : "contact-light"
+        }`}
         align="center"
         gap={20}
       >
-        <div
-          className={theme === "dark" ? "contact-dark" : "contact-light"}
-        ></div>
         <div>
           <Typography.Title style={{ color: "white" }} level={2}>
             Earn up to $25 worth of crypto
