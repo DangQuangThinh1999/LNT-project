@@ -1,6 +1,7 @@
 #header {
   width: 100%;
-
+  max-width: 1440px;
+  margin: auto auto;
   .ant-menu-item-selected {
     background-color: #3772ff !important;
     color: white !important;
