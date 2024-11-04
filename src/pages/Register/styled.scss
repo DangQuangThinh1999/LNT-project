@@ -1,0 +1,74 @@
+.register-page {
+  .title-register {
+    padding: 50px;
+  }
+  .label-input {
+    font-size: 20px;
+    font-weight: 700;
+    color: #777e90;
+    margin-bottom: 12px;
+  }
+  .clock-register {
+    width: 368px;
+    height: 36px;
+    margin: 15px auto 10px;
+    border-radius: 100px;
+    background: rgba(88, 189, 125, 0.1);
+    display: flex;
+    align-items: center;
+  }
+  .clock-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: #58bd7d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .clock-url {
+    padding-left: 44px;
+    font-weight: 500;
+  }
+  .form-register {
+    max-width: 690px;
+    margin: auto;
+    button {
+      padding: 25px;
+    }
+  }
+  .full-width {
+    width: 100%;
+  }
+  input {
+    padding: 10px 19px;
+    font-size: 18px;
+  }
+  img {
+    max-width: 230px;
+    height: auto;
+  }
+  .cover-register {
+    position: relative;
+    .qr-code {
+      position: absolute;
+      top: 50%;
+      right: 1px;
+      transform: translateY(-50%);
+      max-width: 280px;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    @media (max-width: 1275px) {
+      .qr-code {
+        position: static;
+        transform: none;
+        margin: auto;
+      }
+    }
+  }
+}

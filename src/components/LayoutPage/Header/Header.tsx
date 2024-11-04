@@ -1,9 +1,11 @@
-import { Button, Flex, Menu, MenuProps } from "antd";
-import { useState } from "react";
+import { Button, Dropdown, Flex, Menu, MenuProps } from "antd";
+import { useEffect, useMemo, useState } from "react";
 import { CiLight } from "react-icons/ci";
+import { IoLogInOutline } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userRecoil } from "recoil/user";
 import { themeRecoil } from "../../../recoil/theme";
 import { ETheme } from "../../../recoil/type";
 import "./styleHeader.scss";
@@ -16,15 +18,63 @@ const listMenu: MenuProps["items"] = [
     key: "about",
     label: <Link to="/about">about</Link>,
   },
+  {
+    key: "login",
+    label: <Link to="/login">Login</Link>,
+  },
+  {
+    key: "register",
+    label: <Link to="/register">Register</Link>,
+  },
 ];
+
 const Header = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const user = useRecoilValue(userRecoil);
   const [theme, setTheme] = useRecoilState(themeRecoil);
   const [currentKey, setCurrentKey] = useState("home");
   const toggleTheme = () => {
     const newTheme = theme === ETheme.Dark ? ETheme.Light : ETheme.Dark;
     setTheme(newTheme);
   };
+  const token = localStorage.getItem("token");
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+  console.log(user.user, "user");
+  const WalletInfo: MenuProps["items"] = [
+    {
+      key: "1",
+      label: <strong>{user.user.email}</strong>,
+    },
+    {
+      key: "2",
+      label: (
+        <Flex align="center" gap={5} onClick={handleLogout}>
+          <p> Logout </p>
 
+          <IoLogInOutline size={24} />
+        </Flex>
+      ),
+    },
+  ];
+  const menu = useMemo(
+    () =>
+      !token
+        ? listMenu
+        : listMenu.filter(
+            (item: any) => item.key != "login" && item.key != "register"
+          ),
+    [token]
+  );
+
+  useEffect(() => {
+    const pathSegments = location.pathname.split("/");
+    const currentPath = pathSegments[pathSegments.length - 1];
+    setCurrentKey(currentPath);
+  }, [location]);
   const onClick: MenuProps["onClick"] = (e) => {
     setCurrentKey(e.key);
   };
@@ -43,14 +93,32 @@ const Header = () => {
           onClick={onClick}
           selectedKeys={[currentKey]}
           mode="horizontal"
-          items={listMenu}
+          items={menu}
         />
 
-        <Button
-          className="btn-mode"
-          icon={theme === ETheme.Dark ? <MdDarkMode /> : <CiLight />}
-          onClick={toggleTheme}
-        />
+        <Flex align="center">
+          <Button
+            className="btn-mode"
+            icon={theme === ETheme.Dark ? <MdDarkMode /> : <CiLight />}
+            onClick={toggleTheme}
+          />
+          {token && (
+            <Dropdown
+              menu={{ items: WalletInfo }}
+              placement="bottom"
+              arrow={{ pointAtCenter: true }}
+            >
+              <Button
+                variant="solid"
+                style={{ outline: "solid" }}
+                size="middle"
+                shape="round"
+              >
+                Wallet
+              </Button>
+            </Dropdown>
+          )}
+        </Flex>
       </Flex>
     </div>
   );

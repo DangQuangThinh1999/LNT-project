@@ -3,9 +3,9 @@ import { ConfigProvider, Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
+import { themeRecoil } from "recoil/theme";
 import Header from "./Header/Header";
 import "./styled.scss";
-import { themeRecoil } from "recoil/theme";
 
 const LayoutPage = () => {
   const themeState = useRecoilValue(themeRecoil);
@@ -17,12 +17,12 @@ const LayoutPage = () => {
           themeState === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <div className="container">
-        <Layout>
-          <Header />
+      <Header />
+      <Layout>
+        <div className="container">
           <Outlet></Outlet>
-        </Layout>
-      </div>
+        </div>
+      </Layout>
     </ConfigProvider>
   );
 };
