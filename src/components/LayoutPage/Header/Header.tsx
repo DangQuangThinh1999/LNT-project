@@ -26,6 +26,10 @@ const listMenu: MenuProps["items"] = [
     key: "register",
     label: <Link to="/register">Register</Link>,
   },
+  {
+    key: "wallet",
+    label: <Link to="/wallet">Wallet</Link>,
+  },
 ];
 
 const Header = () => {
@@ -109,6 +113,7 @@ const Header = () => {
               arrow={{ pointAtCenter: true }}
             >
               <Button
+                onClick={() => navigate("/wallet")}
                 variant="solid"
                 style={{ outline: "solid" }}
                 size="middle"

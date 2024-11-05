@@ -1,5 +1,6 @@
 {
   "name": "LNT-project",
+  "proxy": "https://trading-go-be-production-f257.up.railway.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
