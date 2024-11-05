@@ -1,3 +1,4 @@
+import { userRecoil } from "@/recoil/user";
 import { Button, Dropdown, Flex, Menu, MenuProps } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { CiLight } from "react-icons/ci";
@@ -5,7 +6,6 @@ import { IoLogInOutline } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userRecoil } from "recoil/user";
 import { themeRecoil } from "../../../recoil/theme";
 import { ETheme } from "../../../recoil/type";
 import "./styleHeader.scss";
@@ -38,12 +38,12 @@ const Header = () => {
     const newTheme = theme === ETheme.Dark ? ETheme.Light : ETheme.Dark;
     setTheme(newTheme);
   };
-  const token = localStorage.getItem("token");
+
   const handleLogout = () => {
     localStorage.removeItem("token");
+    window.location.reload();
     navigate("/login");
   };
-  console.log(user.user, "user");
   const WalletInfo: MenuProps["items"] = [
     {
       key: "1",
@@ -62,12 +62,12 @@ const Header = () => {
   ];
   const menu = useMemo(
     () =>
-      !token
+      !user.token
         ? listMenu
         : listMenu.filter(
             (item: any) => item.key != "login" && item.key != "register"
           ),
-    [token]
+    [user.token]
   );
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const Header = () => {
             icon={theme === ETheme.Dark ? <MdDarkMode /> : <CiLight />}
             onClick={toggleTheme}
           />
-          {token && (
+          {user.token && (
             <Dropdown
               menu={{ items: WalletInfo }}
               placement="bottom"

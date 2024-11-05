@@ -6,7 +6,7 @@ const Register = () => {
   return (
     <div className="register-page">
       <Flex className="title-register" justify="space-between" align="center">
-        <Typography.Title style={{ fontSize: 40, fontWeight: 500 }} level={3}>
+        <Typography.Title className="tite" level={3}>
           register
         </Typography.Title>
         <Breadcrumb
@@ -30,14 +30,16 @@ const Register = () => {
 
       <Card className="cover-register">
         <div className="body-register">
-          <Flex className="form-register" vertical justify="center" align="center">
-            <Typography.Title
-              style={{ fontSize: 40, fontWeight: 500 }}
-              level={3}
-            >
+          <Flex
+            className="form-register"
+            vertical
+            justify="center"
+            align="center"
+          >
+            <Typography.Title className="title" level={3}>
               Register To Rockie
             </Typography.Title>
-            <p style={{ fontSize: 20, color: "gray" }}>
+            <p className="des">
               Register in advance and enjoy the event benefits
             </p>
 

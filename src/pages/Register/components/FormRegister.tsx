@@ -1,17 +1,16 @@
+import { generalHttp } from "@/api/axiosConfig";
+import { useMessage } from "@/hooks/useMessage";
+import { methodLoginArray as methodRegisterArray } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
-import { generalHttp } from "api/axiosConfig";
-import { useMessage } from "hooks/useMessage";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const typeLogin = ["Email", "Mobile"];
-//   "email":"dauan1129@gmail.com",
-// "password":"longvip113"
+
 export const FormRegister = () => {
   const navigate = useNavigate();
   const { showSuccess, showError } = useMessage();
-  const [type, setType] = useState("Email");
+  const [methodActive, setMethodActive] = useState("gmail");
 
   const [form] = Form.useForm();
   const onFinish = async (values: any) => {
@@ -32,7 +31,7 @@ export const FormRegister = () => {
   return (
     <>
       <Flex wrap>
-        {typeLogin.map((item, index) => (
+        {methodRegisterArray.map((item, index) => (
           <Button
             key={index}
             style={{
@@ -41,12 +40,12 @@ export const FormRegister = () => {
               border: "none",
               fontWeight: 500,
             }}
-            onClick={() => setType(item)}
-            type={type === item ? "primary" : "text"}
+            onClick={() => setMethodActive(item)}
+            type={methodActive === item ? "primary" : "text"}
             shape="round"
             size={"large"}
           >
-            {item}
+            {item.charAt(0).toUpperCase() + item.slice(1)}
           </Button>
         ))}
       </Flex>

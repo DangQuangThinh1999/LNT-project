@@ -3,7 +3,7 @@ import { ConfigProvider, Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
-import { themeRecoil } from "recoil/theme";
+import { themeRecoil } from "@/recoil/theme";
 import Header from "./Header/Header";
 import "./styled.scss";
 
@@ -19,7 +19,7 @@ const LayoutPage = () => {
     >
       <Header />
       <Layout>
-        <div className="container">
+        <div className="container-layout">
           <Outlet></Outlet>
         </div>
       </Layout>

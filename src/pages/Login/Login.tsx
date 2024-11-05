@@ -15,7 +15,7 @@ const Login = () => {
   return (
     <div className="login-page">
       <Flex className="title-login" justify="space-between" align="center">
-        <Typography.Title style={{ fontSize: 40, fontWeight: 500 }} level={3}>
+        <Typography.Title className="title" level={3}>
           Login
         </Typography.Title>
         <Breadcrumb
@@ -40,21 +40,16 @@ const Login = () => {
       <Card className="cover-login">
         <div className="body-login">
           <Flex className="form-login" vertical justify="center" align="center">
-            <Typography.Title
-              style={{ fontSize: 40, fontWeight: 500 }}
-              level={3}
-            >
+            <Typography.Title className="title" level={3}>
               Login To Rockie
             </Typography.Title>
-            <p style={{ fontSize: 20, color: "gray" }}>
-              Welcome back! Log In now to start trading
-            </p>
+            <p className="des">Welcome back! Log In now to start trading</p>
             <div className="clock-login">
               <div className="clock-icon">
                 <img src="/Logo/lock.svg" alt="avatar" />
               </div>
               <p className="clock-url">
-                <span style={{ color: "#58bd7d" }}>https://</span>
+                <span className="text-strong">https://</span>
                 accounts.rockie.com/login
               </p>
             </div>
@@ -66,10 +61,10 @@ const Login = () => {
           <Flex vertical justify="center" align="center">
             <img src="/qrCode.png" alt="QR Code" />
             <Typography.Title level={3}>Login with QR code</Typography.Title>
-            <p style={{ textAlign: "center" }}>
+            <p className="text-center">
               Scan this code with the{" "}
-              <strong style={{ color: "#1677ff" }}>Rockie mobile app</strong> to
-              log in instantly.
+              <strong className="text-qr">Rockie mobile app</strong> to log in
+              instantly.
             </p>
           </Flex>
         </div>

@@ -1,5 +1,5 @@
-import Login from "pages/Login/Login";
-import Register from "pages/Register/Register";
+import Login from "@/pages/Login/Login";
+import Register from "@/pages/Register/Register";
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPage from "../components/LayoutPage/LayoutPage";
 import HomePage from "../pages/HomePage/HomePage";

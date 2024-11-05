@@ -1,19 +1,21 @@
+import { generalHttp } from "@/api/axiosConfig";
+import { useMessage } from "@/hooks/useMessage";
+import { userRecoil } from "@/recoil/user";
+import { methodLoginArray } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+
 import { Button, Checkbox, Flex, Form, Input } from "antd";
-import { generalHttp } from "api/axiosConfig";
-import { useMessage } from "hooks/useMessage";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userRecoil } from "recoil/user";
-const typeLogin = ["Email", "Mobile"];
+
 //   "email":"dauan1129@gmail.com",
 // "password":"longvip113"
 export const FormLogin = () => {
   const navigate = useNavigate();
   const { showSuccess, showError } = useMessage();
-  const [type, setType] = useState("Email");
+  const [methodActive, setMethodActive] = useState("gmail");
   const setUser = useRecoilState(userRecoil)[1];
   const [form] = Form.useForm();
   const onFinish = async (values: any) => {
@@ -35,7 +37,7 @@ export const FormLogin = () => {
   return (
     <>
       <Flex wrap>
-        {typeLogin.map((item, index) => (
+        {methodLoginArray.map((item, index) => (
           <Button
             key={index}
             style={{
@@ -44,12 +46,12 @@ export const FormLogin = () => {
               border: "none",
               fontWeight: 500,
             }}
-            onClick={() => setType(item)}
-            type={type === item ? "primary" : "text"}
+            onClick={() => setMethodActive(item)}
+            type={methodActive === item ? "primary" : "text"}
             shape="round"
             size={"large"}
           >
-            {item}
+            {item.charAt(0).toUpperCase() + item.slice(1)}
           </Button>
         ))}
       </Flex>
