@@ -1,8 +1,8 @@
 import { generalHttp } from "@/api/axiosConfig";
 import { METHOD_LOGIN_ARRAY } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Checkbox, Flex, Form, Input, message } from "antd";
 import type { FormProps } from "antd";
+import { Button, Checkbox, Flex, Form, Input, message } from "antd";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

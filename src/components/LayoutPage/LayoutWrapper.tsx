@@ -7,7 +7,7 @@ import { themeRecoil } from "@/recoil/theme";
 import Header from "./Header/Header";
 import "./styled.scss";
 
-const LayoutPage = () => {
+const LayoutWrapper = () => {
   const themeState = useRecoilValue(themeRecoil);
 
   return (
@@ -27,4 +27,4 @@ const LayoutPage = () => {
   );
 };
 
-export default LayoutPage;
+export default LayoutWrapper;

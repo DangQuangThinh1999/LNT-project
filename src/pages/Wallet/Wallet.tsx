@@ -2,7 +2,8 @@ import BreadCrumbCustom from "@/common/BreadCrumbCustom/BreadCrumbCustom";
 import { themeRecoil } from "@/recoil/theme";
 import { METHOD_WALLET_ARRAY } from "@/utils/enum";
 import { Button, Card, Col, Flex, Row, Table } from "antd";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import { useRecoilValue } from "recoil";
 import { Overview } from "./components/Overview";
@@ -27,22 +28,24 @@ const Wallet = () => {
   const [methodActive, setMethodActive] = useState(METHOD_WALLET_ARRAY[0]);
   const theme = useRecoilValue(themeRecoil);
   const { columns, data } = useColumns();
-  //   const getInfoWallet = async () => {
-  //     try {
-  //       const walletRes = await axios.get(
-  //         "https://trading-go-be-production-f257.up.railway.app/api/auth/user",
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`, // Đảm bảo token có sẵn
-  //           },
-  //         }
-  //       );
-  //       console.log(walletRes);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getInfoWallet();
+  const getInfoWallet = async () => {
+    try {
+      const walletRes = await axios.get(
+        "https://trading-go-be-production-f257.up.railway.app/api/auth/overview",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(walletRes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getInfoWallet();
+  }, []);
 
   return (
     <div className="wallet-page">

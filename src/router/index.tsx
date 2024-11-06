@@ -2,7 +2,7 @@ import Login from "@/pages/Login/Login";
 import Register from "@/pages/Register/Register";
 import Wallet from "@/pages/Wallet/Wallet";
 import { createBrowserRouter } from "react-router-dom";
-import LayoutPage from "../components/LayoutPage/LayoutPage";
+import LayoutPage from "../components/LayoutPage/LayoutWrapper";
 import HomePage from "../pages/HomePage/HomePage";
 
 export const router = createBrowserRouter([
