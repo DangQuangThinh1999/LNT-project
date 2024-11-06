@@ -17,7 +17,6 @@ export const userRecoil = atom({
     ({ onSet }) => {
       onSet((newValue) => {
         if (newValue.token.length === 0) {
-          console.log("ok đã logout");
           return localStorage.removeItem("token");
         }
         localStorage.setItem("token", newValue.token);
