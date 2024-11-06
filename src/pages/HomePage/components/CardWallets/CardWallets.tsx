@@ -51,11 +51,7 @@ const CardWallets = () => {
             <Col key={index} xs={24} sm={12} lg={6} md={12} xl={6}>
               <Card className={`shadow-card ${index === 1 ? "active" : ""}`}>
                 <Flex gap={10}>
-                  <img
-                    src={coin.img}
-                    alt={coin.label}
-                    style={{ width: 25, height: 25 }}
-                  />
+                  <img src={coin.img} alt={coin.label} className="img-shadow" />
                   <Typography.Title level={5}>{coin.label}</Typography.Title>
                   <Typography.Title className="unit-text" level={5}>
                     {coin.unit}
@@ -68,12 +64,11 @@ const CardWallets = () => {
                   <p>36,641.20</p>
                   <Button
                     key={index}
-                    style={{
-                      width: "fit-content",
-                      background: coin.percent.includes("-")
-                        ? "#d33535"
-                        : "#58bd7d",
-                    }}
+                    className={
+                      coin.percent.includes("-")
+                        ? "number negative"
+                        : "number positive"
+                    }
                     type="primary"
                     shape="round"
                     size={"small"}

@@ -1,5 +1,5 @@
 import { Flex } from "antd";
-
+import "../styled.scss";
 export const useColumns = () => {
   const columns = [
     {
@@ -15,9 +15,7 @@ export const useColumns = () => {
           <img height={40} width={40} src={record?.img} alt={text} />
           <Flex vertical>
             <strong>{text}</strong>
-            <p style={{ color: "#6d7484", fontSize: 12, fontWeight: 500 }}>
-              Tether USD
-            </p>
+            <p className="text-coin">Tether USD</p>
           </Flex>
         </Flex>
       ),
@@ -28,9 +26,7 @@ export const useColumns = () => {
       title: "Earn",
       dataIndex: "earn",
       key: "earn",
-      render: (text: string) => (
-        <strong style={{ color: "#58bd7d" }}>{text}</strong>
-      ),
+      render: (text: string) => <strong className="strong">{text}</strong>,
       width: 150,
     },
     {
@@ -40,9 +36,7 @@ export const useColumns = () => {
       render: (text: string) => (
         <div>
           <strong>{text}</strong>
-          <p style={{ color: "#6d7484", fontSize: 12, fontWeight: 500 }}>
-            $10,098.36
-          </p>
+          <p className="text-coin">$10,098.36</p>
         </div>
       ),
     },
@@ -53,9 +47,7 @@ export const useColumns = () => {
       render: (text: string) => (
         <div>
           <strong>{text}</strong>
-          <p style={{ color: "#6d7484", fontSize: 12, fontWeight: 500 }}>
-            $10,098.36
-          </p>
+          <p className="text-coin">$10,098.36</p>
         </div>
       ),
     },
@@ -66,9 +58,7 @@ export const useColumns = () => {
       render: (text: string) => (
         <div>
           <strong>{text}</strong>
-          <p style={{ color: "#6d7484", fontSize: 12, fontWeight: 500 }}>
-            $10,098.36
-          </p>
+          <p className="text-coin">$10,098.36</p>
         </div>
       ),
     },

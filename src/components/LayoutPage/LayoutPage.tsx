@@ -17,12 +17,12 @@ const LayoutPage = () => {
           themeState === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
     >
-      <Header />
-      <Layout>
-        <div className="container-layout">
+      <div className="container-layout">
+        <Header />
+        <Layout>
           <Outlet></Outlet>
-        </div>
-      </Layout>
+        </Layout>
+      </div>
     </ConfigProvider>
   );
 };

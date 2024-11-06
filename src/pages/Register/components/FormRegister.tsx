@@ -1,15 +1,14 @@
 import { generalHttp } from "@/api/axiosConfig";
-import { useMessage } from "@/hooks/useMessage";
 import { methodLoginArray as methodRegisterArray } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Checkbox, Flex, Form, Input } from "antd";
+import { Button, Checkbox, Flex, Form, Input, message } from "antd";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const FormRegister = () => {
   const navigate = useNavigate();
-  const { showSuccess, showError } = useMessage();
+
   const [methodActive, setMethodActive] = useState("gmail");
 
   const [form] = Form.useForm();
@@ -20,12 +19,12 @@ export const FormRegister = () => {
         password: values.password,
       });
       if (registerRes.data.data.token) {
-        showSuccess("Register successful");
+        message.success("Register successful");
         navigate("/login");
         form.resetFields();
       }
     } catch (error) {
-      showError("Register failed");
+      message.error("Register failed");
     }
   };
   return (
@@ -34,12 +33,7 @@ export const FormRegister = () => {
         {methodRegisterArray.map((item, index) => (
           <Button
             key={index}
-            style={{
-              width: "fit-content",
-              marginTop: "28px",
-              border: "none",
-              fontWeight: 500,
-            }}
+            className="btn-first"
             onClick={() => setMethodActive(item)}
             type={methodActive === item ? "primary" : "text"}
             shape="round"
@@ -121,12 +115,12 @@ export const FormRegister = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Flex justify="space-between" style={{ marginBottom: 20 }}>
+          <Flex justify="space-between" className="mb20">
             <Checkbox>Remember Me</Checkbox>
-            <p style={{ color: "red" }}>Forgot password?</p>
+            <p className="red">Forgot password?</p>
           </Flex>
           <Button
-            style={{ width: "100%" }}
+            className="w100"
             size="large"
             shape="round"
             type="primary"
@@ -134,10 +128,9 @@ export const FormRegister = () => {
           >
             Login
           </Button>
-          <Flex vertical align="center" style={{ marginTop: 10 }}>
+          <Flex vertical align="center" className="mt10">
             <Flex gap={10}>
-              <p>Not a member?</p>{" "}
-              <strong style={{ color: "#4096ff" }}>Register</strong>
+              <p>Not a member?</p> <strong className="strong">Register</strong>
             </Flex>
           </Flex>
         </Form.Item>

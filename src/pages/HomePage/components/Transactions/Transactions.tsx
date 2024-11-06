@@ -47,21 +47,16 @@ const Transactions = () => {
   return (
     <Row gutter={[36, 16]} className="transactions">
       <Col xs={24} sm={24} xl={12} md={24} lg={12}>
-        <div style={{ position: "relative" }}>
+        <div className="pos-relative">
           {listDecorativeImg.map((item, index) => (
             <div
               key={index}
+              className="pos-absolute"
               style={{
-                position: "absolute",
                 ...item.style,
-                zIndex: 2,
               }}
             >
-              <img
-                src={item.img}
-                alt="coin-icon"
-                style={{ height: 50, width: 50, borderRadius: "50%" }}
-              />
+              <img src={item.img} alt="coin-icon" className="image" />
             </div>
           ))}
 
@@ -81,16 +76,16 @@ const Transactions = () => {
           {listTransition.map((item, index) => {
             return (
               <div key={index}>
-                <Flex gap={10} align="center" style={{ fontSize: 24 }}>
+                <Flex gap={10} align="center">
                   {index !== 0 && <FaCircleCheck color="blue" />}
                   <Typography.Title
-                    style={{ marginBottom: 0, fontSize: 24 }}
+                    className="title"
                     level={index === 0 ? 2 : 5}
                   >
                     {item}
                   </Typography.Title>
                 </Flex>
-                <p style={{ fontSize: index === 0 ? 20 : 16, color: "gray" }}>
+                <p className={index === 0 ? "des-checkIndex" : "des-check"}>
                   Experience a variety of trading on Bitcost. You can use
                   various types of coin transactions such as Spot Trade, Futures
                   Trade, P2P, Staking, Mining, and margin.
@@ -99,12 +94,7 @@ const Transactions = () => {
             );
           })}
         </Flex>
-        <Button
-          style={{ marginTop: 10 }}
-          size="large"
-          type="primary"
-          shape="round"
-        >
+        <Button className="mt10" size="large" type="primary" shape="round">
           Explore More
         </Button>
       </Col>

@@ -1,12 +1,15 @@
+import { userRecoil } from "@/recoil/user";
 import { Breadcrumb, Card, Flex, Typography } from "antd";
 import { useEffect } from "react";
 import { IoIosHome } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { FormLogin } from "./components/FormLogin";
 import "./styled.scss";
 const Login = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = useRecoilValue(userRecoil).token;
+
   useEffect(() => {
     if (token) {
       navigate("/");

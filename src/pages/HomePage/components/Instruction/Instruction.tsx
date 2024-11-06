@@ -41,12 +41,13 @@ const Instruction = () => {
               <Flex vertical align="center" justify="center">
                 <div className="image">
                   <img
+                    className="img-animation"
                     src={`/Banner/Instruction/step${index + 1}.png`}
                     alt={`Step ${index + 1}`}
                   />
                 </div>
                 <p className="step-label">{step.label}</p>
-                <p className="text-gray" style={{ fontSize: 16 }}>
+                <p className="text-gray fs16">
                   Stacks is a production-ready library of stackable content
                   blocks built in React Native.
                 </p>
@@ -54,7 +55,6 @@ const Instruction = () => {
               <Flex vertical justify="space-evenly" className="img-connect">
                 {index !== 3 && (
                   <img
-                    style={{ height: "fit-content" }}
                     src="/Banner/Instruction/connect-line.png"
                     alt="connect-line"
                   />

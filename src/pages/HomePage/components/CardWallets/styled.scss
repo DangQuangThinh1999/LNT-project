@@ -1,14 +1,27 @@
-.unit-text {
-  margin: 0 !important;
-  color: gray !important;
-}
-.amount-text {
-  font-weight: 700 !important;
-  line-height: 1.2rem;
-  font-size: 24px !important;
-}
 .shadow-card {
   transition: box-shadow 0.3s ease;
+  .unit-text {
+    margin: 0 !important;
+    color: gray !important;
+  }
+  .amount-text {
+    font-weight: 700 !important;
+    line-height: 1.2rem;
+    font-size: 24px !important;
+  }
+  .img-shadow {
+    width: 25px;
+    height: 25px;
+  }
+  .number {
+    width: fit-content;
+  }
+  .number.negative {
+    background-color: #d33535;
+  }
+  .number.positive {
+    background-color: #58bd7d;
+  }
 }
 
 .shadow-card:hover {

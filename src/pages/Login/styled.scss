@@ -54,6 +54,27 @@
     button {
       padding: 25px;
     }
+    .btn-first {
+      font-weight: 500;
+      border: none;
+      margin-top: 28px;
+      width: fit-content;
+    }
+    .mb20 {
+      margin-bottom: 20px;
+      .red {
+        color: red;
+      }
+    }
+    .w100 {
+      width: 100%;
+    }
+    .mt10 {
+      margin-top: 10px;
+      .strong {
+        color: #4096ff;
+      }
+    }
   }
   .full-width {
     width: 100%;

@@ -1,37 +1,33 @@
 import { generalHttp } from "@/api/axiosConfig";
-import { useMessage } from "@/hooks/useMessage";
 import { userRecoil } from "@/recoil/user";
 import { methodLoginArray } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
-import { Button, Checkbox, Flex, Form, Input } from "antd";
+import { Button, Checkbox, Flex, Form, Input, message } from "antd";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-
+import "../styled.scss";
 //   "email":"dauan1129@gmail.com",
 // "password":"longvip113"
 export const FormLogin = () => {
   const navigate = useNavigate();
-  const { showSuccess, showError } = useMessage();
   const [methodActive, setMethodActive] = useState("gmail");
   const setUser = useRecoilState(userRecoil)[1];
   const [form] = Form.useForm();
   const onFinish = async (values: any) => {
     try {
       const resLogin = await generalHttp.post("/login", values);
-      localStorage.setItem("token", resLogin.data.data.token);
-      console.log(resLogin, localStorage.getItem("token"));
       setUser({
         token: resLogin.data.data.token,
         user: resLogin.data.data.user,
       });
-      showSuccess("login successful");
+      message.success("login successful");
       navigate("/");
       form.resetFields();
     } catch (error) {
-      showError("Account or password is incorrect");
+      message.error("Account or password is incorrect");
     }
   };
   return (
@@ -40,12 +36,7 @@ export const FormLogin = () => {
         {methodLoginArray.map((item, index) => (
           <Button
             key={index}
-            style={{
-              width: "fit-content",
-              marginTop: "28px",
-              border: "none",
-              fontWeight: 500,
-            }}
+            className="btn-first"
             onClick={() => setMethodActive(item)}
             type={methodActive === item ? "primary" : "text"}
             shape="round"
@@ -87,12 +78,12 @@ export const FormLogin = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Flex justify="space-between" style={{ marginBottom: 20 }}>
+          <Flex justify="space-between" className="mb20">
             <Checkbox>Remember Me</Checkbox>
-            <p style={{ color: "red" }}>Forgot password?</p>
+            <p className="red">Forgot password?</p>
           </Flex>
           <Button
-            style={{ width: "100%" }}
+            className="w100"
             size="large"
             shape="round"
             type="primary"
@@ -100,10 +91,9 @@ export const FormLogin = () => {
           >
             Login
           </Button>
-          <Flex vertical align="center" style={{ marginTop: 10 }}>
+          <Flex vertical align="center" className="mt10">
             <Flex gap={10}>
-              <p>Not a member?</p>{" "}
-              <strong style={{ color: "#4096ff" }}>Register</strong>
+              <p>Not a member?</p> <strong className="strong">Register</strong>
             </Flex>
           </Flex>
         </Form.Item>

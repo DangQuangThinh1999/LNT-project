@@ -1,4 +1,5 @@
 import { Area } from "@ant-design/plots";
+import "./styled.scss";
 interface ILineChart {
   isNegative?: boolean;
 }
@@ -34,7 +35,7 @@ export const LineChart: React.FC<ILineChart> = ({ isNegative }) => {
     },
   };
   return (
-    <div style={{ height: 70, width: 120 }}>
+    <div className="line-chart">
       <Area {...config} />
     </div>
   );

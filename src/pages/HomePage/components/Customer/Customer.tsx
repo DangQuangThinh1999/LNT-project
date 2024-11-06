@@ -15,7 +15,7 @@ const Customer = () => {
           It is a long established fact that a reader will be distracted by the
           readable content of a page when looking at its layout.
         </p>
-        <Flex style={{ marginTop: 10 }} gap={10}>
+        <Flex className="mt10" gap={10}>
           {new Array(3).fill(null).map((item, index) => (
             <Avatar
               key={index}
@@ -27,12 +27,8 @@ const Customer = () => {
         </Flex>
         <Flex>
           <p>
-            <span style={{ color: "blue", fontSize: 16, fontWeight: 500 }}>
-              30+
-            </span>
-            <span style={{ fontWeight: 500, fontSize: 12, color: "gray" }}>
-              Customer Reviews
-            </span>
+            <span className="number-customer">30+</span>
+            <span className="customer-reviews">Customer Reviews</span>
           </p>
         </Flex>
       </Col>
@@ -41,25 +37,16 @@ const Customer = () => {
           {new Array(3).fill(null).map((item, index) => {
             return (
               <Flex className="feedback" key={index}>
-                <div style={{ float: "right" }}>
-                  <FaQuoteRight color="#3772ff" />
+                <div className="right">
+                  <FaQuoteRight className="icon" />
                 </div>
-                <Typography.Title
-                  style={{ marginTop: 40 }}
-                  className="title-feedback"
-                  level={5}
-                >
+                <Typography.Title className="title-feedback" level={5}>
                   “Great course I really enjoyed it and the course was way easy
                   to learn with very good explanations of the code, I could
                   easily understand and develop applications with the knowledge
                   gathered during the course.”
                 </Typography.Title>
-                <Flex
-                  justify="space-between"
-                  wrap
-                  gap={20}
-                  style={{ marginBottom: 20 }}
-                >
+                <Flex justify="space-between" wrap gap={20} className="mb20">
                   <Flex align="center" gap={10}>
                     <Avatar
                       size={40}
@@ -67,14 +54,14 @@ const Customer = () => {
                       alt={`avatar${index + 1}`}
                     />
                     <div>
-                      <Typography.Title style={{ marginBottom: 0 }} level={5}>
+                      <Typography.Title className="mb0" level={5}>
                         Johnny Andro
                       </Typography.Title>
-                      <p style={{ color: "gray" }}>Director, Company</p>
+                      <p className="text-gray">Director, Company</p>
                     </div>
                   </Flex>
                   <img
-                    style={{ objectFit: "cover", height: 40 }}
+                    className="image"
                     src="/Banner/logo-feedback.png"
                     alt="logo feedback"
                   />

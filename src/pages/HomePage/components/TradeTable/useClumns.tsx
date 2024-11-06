@@ -3,6 +3,7 @@ import { Button, Flex } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useState } from "react";
 import { LineChart } from "./LineChart";
+import "./styled.scss";
 const StarChecked = () => {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -10,18 +11,9 @@ const StarChecked = () => {
     setIsChecked((prev) => !prev);
   };
   return (
-    <div className="star-checkbox" onClick={toggleChecked}>
-      {isChecked ? (
-        <StarFilled style={{ color: "#fadb14" }} />
-      ) : (
-        <StarOutlined />
-      )}
-      <input
-        type="checkbox"
-        style={{ display: "none" }}
-        checked={isChecked}
-        readOnly
-      />
+    <div onClick={toggleChecked}>
+      {isChecked ? <StarFilled className="star" /> : <StarOutlined />}
+      <input type="checkbox" className="none" checked={isChecked} readOnly />
     </div>
   );
 };
@@ -64,11 +56,7 @@ export const useColumns = () => {
       key: "name",
       render: (text: any) => (
         <Flex gap={5}>
-          <img
-            src={getCoinImageUrl(text)}
-            alt={text}
-            style={{ width: 25, height: 25 }}
-          />
+          <img src={getCoinImageUrl(text)} alt={text} className="image" />
           <p>{text}</p>
         </Flex>
       ),
@@ -85,7 +73,7 @@ export const useColumns = () => {
       dataIndex: "change24h",
       key: "change24h",
       render: (text: any) => (
-        <span style={{ color: text >= 0 ? "green" : "red" }}>
+        <span className={text >= 0 ? "green" : "red"}>
           {text >= 0 ? `+${text}%` : `${text}%`}
         </span>
       ),

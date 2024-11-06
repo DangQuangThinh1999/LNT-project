@@ -17,10 +17,10 @@ const ContactInfo = () => {
         gap={20}
       >
         <div>
-          <Typography.Title style={{ color: "white" }} level={2}>
+          <Typography.Title className="text-white" level={2}>
             Earn up to $25 worth of crypto
           </Typography.Title>
-          <Typography style={{ color: "white" }}>
+          <Typography className="text-white">
             Discover how specific cryptocurrencies work — and get a bit of each
             crypto to try out for yourself.
           </Typography>

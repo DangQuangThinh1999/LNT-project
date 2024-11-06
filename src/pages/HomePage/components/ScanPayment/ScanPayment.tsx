@@ -23,39 +23,35 @@ const ScanPayment = () => {
           {listMethod.map((item, index) => {
             return (
               <div key={index}>
-                <Flex gap={10} align="center" style={{ fontSize: 24 }}>
+                <Flex gap={10} align="center">
                   {index !== 0 && <FaCircleCheck color="blue" />}
                   <Typography.Title
-                    style={{ marginBottom: 0, fontSize: 24 }}
+                    className="label-check"
                     level={index === 0 ? 2 : 5}
                   >
                     {item.label}
                   </Typography.Title>
                 </Flex>
-                <p style={{ fontSize: index === 0 ? 20 : 16, color: "gray" }}>
+                <p className={index === 0 ? "des-checkIndex" : "des-check"}>
                   {item.des}
                 </p>
               </div>
             );
           })}
         </Flex>
-        <Flex gap={20} style={{ marginTop: 20 }}>
+        <Flex gap={20} className="mt20">
           <img
-            style={{ cursor: "pointer" }}
+            className="cursor"
             src="/Banner/googlePlay.png"
             alt="Google Play"
           />
 
-          <img
-            style={{ cursor: "pointer" }}
-            src="/Banner/appStore.png"
-            alt="App Store"
-          />
+          <img className="cursor" src="/Banner/appStore.png" alt="App Store" />
         </Flex>
       </Col>
       <Col xs={24} sm={24} xl={12} md={24} lg={12}>
-        <div className="image">
-          <img src="/Banner/scan.png" alt="scan" />
+        <div>
+          <img className="image" src="/Banner/scan.png" alt="scan" />
         </div>
       </Col>
     </Row>

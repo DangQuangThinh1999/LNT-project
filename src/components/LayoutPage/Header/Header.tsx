@@ -1,11 +1,11 @@
-import { userRecoil } from "@/recoil/user";
+import { TUser, userRecoil } from "@/recoil/user";
 import { Button, Dropdown, Flex, Menu, MenuProps } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { CiLight } from "react-icons/ci";
 import { IoLogInOutline } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { themeRecoil } from "../../../recoil/theme";
 import { ETheme } from "../../../recoil/type";
 import "./styleHeader.scss";
@@ -42,9 +42,13 @@ const Header = () => {
     const newTheme = theme === ETheme.Dark ? ETheme.Light : ETheme.Dark;
     setTheme(newTheme);
   };
+  const setUser = useSetRecoilState(userRecoil);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    setUser({
+      token: "",
+      user: {} as TUser,
+    });
     window.location.reload();
     navigate("/login");
   };
@@ -92,7 +96,7 @@ const Header = () => {
           />
         </Button>
         <Menu
-          style={{ width: "100%" }}
+          className="menu-header"
           theme={theme}
           onClick={onClick}
           selectedKeys={[currentKey]}
@@ -106,7 +110,7 @@ const Header = () => {
             icon={theme === ETheme.Dark ? <MdDarkMode /> : <CiLight />}
             onClick={toggleTheme}
           />
-          {user.token && (
+          {user.token.length > 0 && (
             <Dropdown
               menu={{ items: WalletInfo }}
               placement="bottom"
@@ -115,7 +119,7 @@ const Header = () => {
               <Button
                 onClick={() => navigate("/wallet")}
                 variant="solid"
-                style={{ outline: "solid" }}
+                className="btn-wallet"
                 size="middle"
                 shape="round"
               >

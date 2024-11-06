@@ -16,6 +16,14 @@
     position: relative;
     height: 100%;
     padding: 0 30px;
+    .text-coin {
+      color: #6d7484;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .strong {
+      color: #58bd7d;
+    }
     .divider {
       position: absolute;
       top: 0;

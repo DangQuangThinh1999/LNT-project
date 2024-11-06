@@ -10,18 +10,12 @@ const Banner = () => {
             <Typography.Title level={2}>
               Buy & Sell Digital Assets In The Rockie
             </Typography.Title>
-            <p
-              style={{
-                color: "#777e90",
-                letterSpacing: "-0.2px",
-                fontSize: 20,
-              }}
-            >
+            <p className="des">
               Coin rockie is the easiest, safest, and fastest way to buy & sell
               crypto asset exchange.
             </p>
             <Button
-              style={{ width: "fit-content", marginTop: "28px" }}
+              className="btn-start"
               type="primary"
               shape="round"
               size={"large"}
@@ -32,6 +26,7 @@ const Banner = () => {
             <Flex gap={30} align="center">
               {new Array(4).fill(null).map((_, j) => (
                 <img
+                  className="img-banner"
                   key={j}
                   src={`/Banner/Brand/brand${j + 1}.png`}
                   alt={`Brand ${j + 1}`}
@@ -41,7 +36,11 @@ const Banner = () => {
           </Flex>
         </Col>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
-          <img src={`/Banner/banner-big.png`} alt={`Brand big`} />
+          <img
+            className="img-banner"
+            src={`/Banner/banner-big.png`}
+            alt={`Brand big`}
+          />
         </Col>
       </Row>
     </div>

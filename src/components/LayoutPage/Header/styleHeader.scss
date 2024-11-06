@@ -1,6 +1,11 @@
 #header {
   width: 100%;
-
+  .menu-header {
+    width: 100%;
+  }
+  .btn-wallet {
+    outline: solid;
+  }
   .ant-menu-item-selected {
     background-color: #3772ff !important;
     color: white !important;
