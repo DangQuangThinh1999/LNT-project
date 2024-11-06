@@ -1,5 +1,5 @@
 import { generalHttp } from "@/api/axiosConfig";
-import { methodLoginArray as methodRegisterArray } from "@/utils/enum";
+import { METHOD_LOGIN_ARRAY } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input, message } from "antd";
 import type { FormProps } from "antd";
@@ -36,7 +36,7 @@ export const FormRegister = () => {
   return (
     <>
       <Flex wrap>
-        {methodRegisterArray.map((item, index) => (
+        {METHOD_LOGIN_ARRAY.map((item, index) => (
           <Button
             key={index}
             className="btn-first"

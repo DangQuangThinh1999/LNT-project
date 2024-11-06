@@ -1,6 +1,6 @@
 import { generalHttp } from "@/api/axiosConfig";
 import { userRecoil } from "@/recoil/user";
-import { methodLoginArray } from "@/utils/enum";
+import { METHOD_LOGIN_ARRAY } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 import { Button, Checkbox, Flex, Form, Input, message } from "antd";
@@ -33,7 +33,7 @@ export const FormLogin = () => {
   return (
     <>
       <Flex wrap>
-        {methodLoginArray.map((item, index) => (
+        {METHOD_LOGIN_ARRAY.map((item, index) => (
           <Button
             key={index}
             className="btn-first"

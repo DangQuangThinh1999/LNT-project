@@ -1,6 +1,6 @@
 import BreadCrumbCustom from "@/common/BreadCrumbCustom/BreadCrumbCustom";
 import { themeRecoil } from "@/recoil/theme";
-import { methodWalletArray } from "@/utils/enum";
+import { METHOD_WALLET_ARRAY } from "@/utils/enum";
 import { Button, Card, Col, Flex, Row, Table } from "antd";
 import { useState } from "react";
 import { IoIosHome } from "react-icons/io";
@@ -24,7 +24,7 @@ const items = [
   },
 ];
 const Wallet = () => {
-  const [methodActive, setMethodActive] = useState(methodWalletArray[0]);
+  const [methodActive, setMethodActive] = useState(METHOD_WALLET_ARRAY[0]);
   const theme = useRecoilValue(themeRecoil);
   const { columns, data } = useColumns();
   //   const getInfoWallet = async () => {
@@ -51,7 +51,7 @@ const Wallet = () => {
         <Row>
           <Col xs={24} md={24} xl={6} lg={6}>
             <Flex vertical className="side">
-              {methodWalletArray.map((item, index) => (
+              {METHOD_WALLET_ARRAY.map((item, index) => (
                 <Button
                   key={index}
                   className="btn-method"
