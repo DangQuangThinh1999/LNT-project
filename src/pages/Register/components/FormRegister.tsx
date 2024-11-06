@@ -2,9 +2,15 @@ import { generalHttp } from "@/api/axiosConfig";
 import { methodLoginArray as methodRegisterArray } from "@/utils/enum";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input, message } from "antd";
+import type { FormProps } from "antd";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+type TLoginForm = {
+  email: string;
+  password: string;
+};
 
 export const FormRegister = () => {
   const navigate = useNavigate();
@@ -12,7 +18,7 @@ export const FormRegister = () => {
   const [methodActive, setMethodActive] = useState("gmail");
 
   const [form] = Form.useForm();
-  const onFinish = async (values: any) => {
+  const onFinish: FormProps<TLoginForm>["onFinish"] = async (values) => {
     try {
       const registerRes = await generalHttp.post("/register", {
         email: values.email,

@@ -1,9 +1,8 @@
-.home {
+.home-page-layout {
   padding: 50px;
   overflow-x: hidden;
-}
-@media (max-width: 600px) {
-  .home {
+
+  @media (max-width: 600px) {
     padding: 20px;
   }
 }
