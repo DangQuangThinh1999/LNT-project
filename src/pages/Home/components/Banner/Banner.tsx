@@ -4,7 +4,7 @@ import "./styled.scss";
 const Banner = () => {
   return (
     <div className="banner-container">
-      <Row gutter={[20, 20]}>
+      <Row className="banner-content" gutter={[20, 20]}>
         <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
           <Flex vertical gap={20}>
             <Typography.Title level={2}>

@@ -20,8 +20,8 @@ export const FormLogin = () => {
     try {
       const resLogin = await generalHttp.post("/login", values);
       setUser({
-        token: resLogin.data.data.token,
-        user: resLogin.data.data.user,
+        token: resLogin.data.token,
+        user: resLogin.data.user,
       });
       message.success("login successful");
       navigate("/");
@@ -60,7 +60,7 @@ export const FormLogin = () => {
           initialValue={"dauan1129@gmail.com"}
         >
           <Input
-            className="full-width "
+            className="full-width"
             placeholder="Please fill in the email form."
           />
         </Form.Item>

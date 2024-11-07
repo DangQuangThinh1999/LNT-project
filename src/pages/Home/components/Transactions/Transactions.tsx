@@ -71,7 +71,7 @@ const Transactions = () => {
           </Carousel>
         </div>
       </Col>
-      <Col xs={24} sm={24} xl={12} md={24} lg={12}>
+      <Col className="experience" xs={24} sm={24} xl={12} md={24} lg={12}>
         <Flex gap={20} vertical>
           {listTransition.map((item, index) => {
             return (

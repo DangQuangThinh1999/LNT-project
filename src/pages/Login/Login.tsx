@@ -41,28 +41,26 @@ const Login = () => {
       </Flex>
 
       <Card className="cover-login">
-        <div className="body-login">
-          <Flex className="form-login" vertical justify="center" align="center">
-            <Typography.Title className="title" level={3}>
-              Login To Rockie
-            </Typography.Title>
-            <p className="des">Welcome back! Log In now to start trading</p>
-            <div className="clock-login">
-              <div className="clock-icon">
-                <img src="/Logo/lock.svg" alt="avatar" />
-              </div>
-              <p className="clock-url">
-                <span className="text-strong">https://</span>
-                accounts.rockie.com/login
-              </p>
+        <Flex className="form-login" vertical justify="center" align="center">
+          <Typography.Title className="title" level={3}>
+            Login To Rockie
+          </Typography.Title>
+          <p className="des">Welcome back! Log In now to start trading</p>
+          <div className="clock-login">
+            <div className="clock-icon">
+              <img src="/Logo/lock.svg" alt="avatar" />
             </div>
-            <FormLogin />
-          </Flex>
-        </div>
+            <p className="clock-url">
+              <span className="text-strong">https://</span>
+              accounts.rockie.com/login
+            </p>
+          </div>
+          <FormLogin />
+        </Flex>
 
         <div className="qr-code">
           <Flex vertical justify="center" align="center">
-            <img src="/qrCode.png" alt="QR Code" />
+            <img className="qr-img" src="/qrCode.png" alt="QR Code" />
             <Typography.Title level={3}>Login with QR code</Typography.Title>
             <p className="text-center">
               Scan this code with the{" "}

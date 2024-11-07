@@ -21,3 +21,12 @@ generalHttp.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+generalHttp.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

@@ -1,8 +1,9 @@
+import { generalHttp } from "@/api/axiosConfig";
 import BreadCrumbCustom from "@/common/BreadCrumbCustom/BreadCrumbCustom";
 import { themeRecoil } from "@/recoil/theme";
 import { METHOD_WALLET_ARRAY } from "@/utils/enum";
+import { CryptoToken } from "@/utils/interface";
 import { Button, Card, Col, Flex, Row, Table } from "antd";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import { useRecoilValue } from "recoil";
@@ -27,20 +28,18 @@ const items = [
 const Wallet = () => {
   const [methodActive, setMethodActive] = useState(METHOD_WALLET_ARRAY[0]);
   const theme = useRecoilValue(themeRecoil);
-  const { columns, data } = useColumns();
+  const { columns } = useColumns();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [tokensList, setTokensList] = useState<CryptoToken[]>();
   const getInfoWallet = async () => {
+    setLoading(true);
     try {
-      const walletRes = await axios.get(
-        "https://trading-go-be-production-f257.up.railway.app/api/auth/overview",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log(walletRes);
+      const walletRes = await generalHttp.get("/api/auth/overview");
+      setTokensList(walletRes.data.tokensOverViewList);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -73,15 +72,15 @@ const Wallet = () => {
             <Card className={theme === "dark" ? "dark-card" : "light-card"}>
               <Overview />
             </Card>
-            <Card>
-              {" "}
-              <Table
-                scroll={{ x: 800 }}
-                columns={columns}
-                dataSource={data}
-                pagination={false}
-              />
-            </Card>
+
+            <Table
+              loading={loading}
+              className={theme === "dark" ? "tr-dark" : "tr-light"}
+              scroll={{ x: 800 }}
+              columns={columns}
+              dataSource={tokensList}
+              pagination={false}
+            />
           </Col>
         </Row>
       </Card>

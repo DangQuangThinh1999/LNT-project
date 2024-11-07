@@ -87,7 +87,7 @@ const Header = () => {
     setCurrentKey(e.key);
   };
   return (
-    <div id="header">
+    <div className="header-wrapper">
       <Flex>
         <Button className="img-header" type="dashed">
           <img

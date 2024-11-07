@@ -24,7 +24,7 @@ export const FormRegister = () => {
         email: values.email,
         password: values.password,
       });
-      if (registerRes.data.data.token) {
+      if (registerRes.data.token) {
         message.success("Register successful");
         navigate("/login");
         form.resetFields();

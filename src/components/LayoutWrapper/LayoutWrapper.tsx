@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 import { themeRecoil } from "@/recoil/theme";
+import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import "./styled.scss";
 
@@ -21,6 +22,7 @@ const LayoutWrapper = () => {
         <Header />
         <Layout>
           <Outlet></Outlet>
+          <Footer />
         </Layout>
       </div>
     </ConfigProvider>

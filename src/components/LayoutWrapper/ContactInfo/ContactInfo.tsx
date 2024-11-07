@@ -1,6 +1,6 @@
 import { Button, Flex, Typography } from "antd";
 import { useRecoilValue } from "recoil";
-import { themeRecoil } from "../../../../recoil/theme";
+import { themeRecoil } from "../../../recoil/theme";
 import "./styled.scss";
 const ContactInfo = () => {
   const theme = useRecoilValue(themeRecoil);
