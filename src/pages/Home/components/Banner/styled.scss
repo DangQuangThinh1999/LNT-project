@@ -1,0 +1,37 @@
+.banner-container {
+  .banner-content {
+    h2 {
+      font-size: 64px;
+      font-weight: 700;
+    }
+
+    h5 {
+      font-size: 24px;
+    }
+    .img-banner {
+      width: 100%;
+      object-fit: cover;
+      height: auto;
+    }
+    .des {
+      color: #777e90;
+      letter-spacing: -0.2px;
+      font-size: 20px;
+    }
+    .btn-start {
+      width: fit-content;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 28px;
+      }
+
+      .img-banner {
+        width: 80%;
+        margin: 0 auto;
+      }
+    }
+  }
+}

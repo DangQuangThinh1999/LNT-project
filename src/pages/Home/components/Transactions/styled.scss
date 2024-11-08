@@ -1,0 +1,51 @@
+.transactions {
+  .pos-relative {
+    position: relative;
+    .pos-absolute {
+      position: absolute;
+      z-index: 2;
+      .image {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+      }
+    }
+  }
+  .slick-dots.slick-dots-bottom li {
+    background-color: gray;
+    height: 11px;
+    width: 11px;
+    border-radius: 50%;
+  }
+  .ant-carousel .slick-dots li.slick-active button {
+    background-color: transparent;
+  }
+  .slick-dots.slick-dots-bottom .slick-active {
+    background-color: blue;
+  }
+  .experience {
+    .title {
+      font-size: 24px;
+      margin-bottom: 0;
+    }
+    .des-check {
+      color: gray;
+      font-size: 16px;
+    }
+    .des-checkIndex {
+      color: gray;
+      font-size: 20px;
+    }
+    .mt10 {
+      margin-top: 10px;
+    }
+    h2 {
+      font-size: 48px !important;
+      letter-spacing: -1px;
+      font-weight: 700;
+      @media (max-width: 600px) {
+        font-size: 32px !important;
+      }
+    }
+  }
+}

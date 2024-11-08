@@ -1,0 +1,39 @@
+.scanPayment {
+  h2 {
+    font-size: 48px !important;
+    letter-spacing: -1px;
+    font-weight: 700;
+  }
+  .scan-payment-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 24px;
+  }
+  .label-check {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+  .des-check {
+    color: gray;
+    font-size: 16px;
+  }
+  .mt20 {
+    margin-top: 20px;
+    .cursor {
+      cursor: pointer;
+    }
+  }
+  .des-checkIndex {
+    color: gray;
+    font-size: 20px;
+  }
+  .image {
+    width: 80%;
+    height: auto;
+  }
+  @media (max-width: 600px) {
+    h2 {
+      font-size: 32px !important;
+    }
+  }
+}

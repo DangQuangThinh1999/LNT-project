@@ -1,0 +1,57 @@
+.trade {
+  h2 {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+  h5 {
+    font-size: 24px;
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+    @media (max-width: 600px) {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+  .star {
+    color: #fadb14;
+  }
+  .image {
+    width: 25px;
+    height: 25px;
+  }
+  .none {
+    display: none;
+  }
+  .text-green {
+    color: green;
+  }
+  .text-red {
+    color: red;
+  }
+  .line-chart {
+    height: 70px;
+    width: 120px;
+  }
+  .ant-table-wrapper
+    .ant-table-tbody
+    .ant-table-row
+    > .ant-table-cell-row-hover {
+    .ant-btn-variant-outlined {
+      background-color: #1677ff !important;
+      color: white;
+    }
+  }
+  td {
+    padding: 0 20px !important;
+  }
+  @media (max-width: 600px) {
+    h2 {
+      margin-bottom: 0;
+      font-size: 28px !important;
+    }
+  }
+}

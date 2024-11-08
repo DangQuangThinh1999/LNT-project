@@ -8,10 +8,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      Components: path.resolve(__dirname, "src/components/"),
-      Utils: path.resolve(__dirname, "src/utils/"),
+      "@": path.resolve(__dirname, "src/"),
     },
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   module: {
     rules: [

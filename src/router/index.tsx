@@ -1,6 +1,9 @@
+import Login from "@/pages/Login/Login";
+import Register from "@/pages/Register/Register";
+import Wallet from "@/pages/Wallet/Wallet";
 import { createBrowserRouter } from "react-router-dom";
-import LayoutPage from "../components/LayoutPage/LayoutPage";
-import HomePage from "../pages/HomePage/HomePage";
+import LayoutPage from "../components/LayoutWrapper/LayoutWrapper";
+import HomePage from "../pages/Home/Home";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +17,18 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <div>About</div>,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "wallet",
+        element: <Wallet />,
       },
       // { path: "products/:productId", element: <ProductPage /> },
       // { path: "cart", element: <CartPage /> },

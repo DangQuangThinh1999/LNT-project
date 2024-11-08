@@ -2,27 +2,30 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
+import { ConfigProvider } from "antd";
+
 import { RecoilRoot } from "recoil";
+
 import reportWebVitals from "./reportWebVitals";
 import { router } from "./router";
-import { ConfigProvider } from "antd";
+import "./index.scss";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <RecoilRoot>
       <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "#3772FF",
-            colorBgBase: "#FFFFFF",
-            colorFillSecondary: "#777E90",
-            fontFamily: "DM Sans",
-            colorPrimaryHover: "#2E72D2",
-          },
-        }}
+      // theme={{
+      //   token: {
+      //     colorPrimary: "#3772FF",
+      //     colorBgBase: "#FFFFFF",
+      //     colorFillSecondary: "#777E90",
+      //     fontFamily: "DM Sans",
+      //     colorPrimaryHover: "#2E72D2",
+      //   },
+      // }}
       >
-        <RouterProvider router={router} />
+        <RouterProvider router={router} fallbackElement={"loading..."} />
       </ConfigProvider>
     </RecoilRoot>
   </React.StrictMode>

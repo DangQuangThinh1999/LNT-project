@@ -1,0 +1,22 @@
+.contactInfo {
+  .create-account {
+    padding: 34px 0;
+    padding: 50px;
+    .text-white {
+      color: white;
+    }
+  }
+  .contact-light {
+    background: linear-gradient(135deg, #5f4bd3, #6c63ff);
+  }
+  .contact-dark {
+    background: #18191d;
+    .ant-btn-variant-outlined,
+    .ant-btn-variant-dashed {
+      border-color: #424242;
+      background: #fff;
+      color: black;
+      font-weight: 500;
+    }
+  }
+}

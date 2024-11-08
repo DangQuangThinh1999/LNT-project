@@ -1,0 +1,64 @@
+.register-page {
+  .title-register {
+    padding: 50px;
+  }
+
+  .title {
+    font-size: 40px !important;
+    font-weight: 500;
+    @media (max-width: 600px) {
+      font-size: 32px !important;
+    }
+  }
+  .form-register {
+    max-width: 690px;
+    margin: auto;
+    .ant-form-item
+      .ant-form-item-label
+      > label.ant-form-item-required:not(
+        .ant-form-item-required-mark-optional
+      )::before {
+      display: none;
+    }
+    .des {
+      font-size: 20px;
+      color: gray;
+    }
+
+    .label-input {
+      font-size: 20px;
+      font-weight: 700;
+      color: #777e90;
+      margin-bottom: 12px;
+    }
+
+    .btn-first {
+      font-weight: 500;
+      border: none;
+      margin-top: 28px;
+      width: fit-content;
+      padding: 20px;
+    }
+    .mb20 {
+      margin-bottom: 20px;
+      .red {
+        color: red;
+      }
+    }
+    .w100 {
+      width: 100%;
+      padding: 25px;
+    }
+    .mt10 {
+      margin-top: 10px;
+      .strong {
+        color: #4096ff;
+      }
+    }
+  }
+  .full-width {
+    width: 100%;
+    padding: 10px 19px;
+    font-size: 18px;
+  }
+}

@@ -1,6 +1,6 @@
 import { Button, Flex } from "antd";
 import { useState } from "react";
-
+import "./styled.scss";
 interface IListTabs {
   data: string[];
 }
@@ -11,12 +11,7 @@ const ListTabs: React.FC<IListTabs> = ({ data = [""] }) => {
       {data.map((wallet, index) => (
         <Button
           key={index}
-          style={{
-            width: "fit-content",
-            marginTop: "28px",
-            border: "none",
-            fontWeight: 500,
-          }}
+          className="btn-tabs"
           onClick={() => setWalletActive(wallet)}
           type={walletActive === wallet ? "primary" : "text"}
           shape="round"
