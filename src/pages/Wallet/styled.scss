@@ -115,6 +115,92 @@
       }
     }
   }
+  .withdrawal-wrapper {
+    padding: 0 30px;
+    .step-container {
+      margin-bottom: 20px;
+      .icon-circle {
+        border: 2px solid #b1b5c3;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #f7f7f7;
+        margin-top: 5px;
+      }
+      .icon-checked {
+        border: 2px solid #58bd7d;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .icon-container {
+          width: 12px;
+          height: 12px;
+          background-color: #58bd7d;
+          border-radius: 50%;
+        }
+      }
+      .icon-error {
+        color: red;
+        @media (max-width: 768px) {
+          margin-right: 12px;
+        }
+      }
+      .icon-finish {
+        color: #58bd7d;
+        @media (max-width: 768px) {
+          margin-right: 10px;
+        }
+      }
+    }
+    .form-detail {
+      .input-coin {
+        padding: 10px 20px;
+      }
+      .label-coin {
+        font-weight: 500;
+        font-size: 16px;
+      }
+      .group-btn {
+        margin-top: 20px;
+        .btn-coin {
+          width: 100%;
+        }
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+  .confirmation-wrapper {
+    padding: 0 30px;
+
+    .group-btn {
+      margin-top: 20px;
+      .btn-coin {
+        width: 100%;
+      }
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  }
+  .transaction-wrapper {
+    padding: 0 30px;
+
+    .group-btn {
+      margin-top: 20px;
+      .btn-coin {
+        width: 100%;
+      }
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  }
   @media (max-width: 992px) {
     .divider {
       display: none;

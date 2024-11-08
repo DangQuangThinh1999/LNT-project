@@ -7,10 +7,12 @@ enum METHODS_WALLET_ENUM {
   BuyCrypto = "Buy Crypto",
   SellCrypto = "Sell Crypto",
   Transfer = "Transfer",
+  Withdrawal = "Withdrawal",
 }
 
 export const METHOD_WALLET_ARRAY = [
   METHODS_WALLET_ENUM.Overview,
+  METHODS_WALLET_ENUM.Withdrawal,
   METHODS_WALLET_ENUM.BuyCrypto,
   METHODS_WALLET_ENUM.SellCrypto,
   METHODS_WALLET_ENUM.Transfer,

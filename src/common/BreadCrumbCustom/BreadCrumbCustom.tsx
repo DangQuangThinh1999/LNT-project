@@ -7,7 +7,12 @@ interface IBreadCrumb {
 const BreadCrumb: React.FC<IBreadCrumb> = ({ title, items }) => {
   return (
     <div className="breadCrumb-section">
-      <Flex className="title-breadCrumb" justify="space-between" align="center">
+      <Flex
+        className="title-breadCrumb"
+        justify="space-between"
+        align="center"
+        wrap
+      >
         <Typography.Title className="title" level={3}>
           {title}
         </Typography.Title>

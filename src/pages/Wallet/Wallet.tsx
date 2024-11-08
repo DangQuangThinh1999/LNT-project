@@ -1,14 +1,10 @@
-import { generalHttp } from "@/api/axiosConfig";
 import BreadCrumbCustom from "@/common/BreadCrumbCustom/BreadCrumbCustom";
-import { themeRecoil } from "@/recoil/theme";
 import { METHOD_WALLET_ARRAY } from "@/utils/enum";
-import { CryptoToken } from "@/utils/interface";
-import { Button, Card, Col, Flex, Row, Table } from "antd";
-import { useEffect, useState } from "react";
+import { Button, Card, Col, Flex, Row } from "antd";
+import { useState } from "react";
 import { IoIosHome } from "react-icons/io";
-import { useRecoilValue } from "recoil";
 import { Overview } from "./components/Overview";
-import { useColumns } from "./components/useColumns";
+import { Withdrawal } from "./components/Withdrawal/Withdrawal";
 import "./styled.scss";
 const items = [
   {
@@ -27,32 +23,14 @@ const items = [
 ];
 const Wallet = () => {
   const [methodActive, setMethodActive] = useState(METHOD_WALLET_ARRAY[0]);
-  const theme = useRecoilValue(themeRecoil);
-  const { columns } = useColumns();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [tokensList, setTokensList] = useState<CryptoToken[]>();
-  const getInfoWallet = async () => {
-    setLoading(true);
-    try {
-      const walletRes = await generalHttp.get("/api/auth/overview");
-      setTokensList(walletRes.data.tokensOverViewList);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    getInfoWallet();
-  }, []);
 
   return (
     <div className="wallet-page">
-      <BreadCrumbCustom title="Wallet" items={items} />
+      <BreadCrumbCustom title={methodActive} items={items} />
       <Card className="container-wallet">
         <Row>
           <Col xs={24} md={24} xl={6} lg={6}>
-            <Flex vertical className="side">
+            <Flex vertical className="side" wrap>
               {METHOD_WALLET_ARRAY.map((item, index) => (
                 <Button
                   key={index}
@@ -69,18 +47,8 @@ const Wallet = () => {
           </Col>
           <Col className="table-wallet" xs={24} md={24} xl={18} lg={18}>
             <div className="divider"></div>
-            <Card className={theme === "dark" ? "dark-card" : "light-card"}>
-              <Overview />
-            </Card>
-
-            <Table
-              loading={loading}
-              className={theme === "dark" ? "tr-dark" : "tr-light"}
-              scroll={{ x: 800 }}
-              columns={columns}
-              dataSource={tokensList}
-              pagination={false}
-            />
+            {methodActive === "Overview" && <Overview />}
+            {methodActive === "Withdrawal" && <Withdrawal />}
           </Col>
         </Row>
       </Card>
