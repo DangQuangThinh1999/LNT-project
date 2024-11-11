@@ -1,168 +1,289 @@
 .wallet-page {
-  .side {
-    gap: 10px;
-    padding: 0 30px;
-    .btn-method {
-      width: 100%;
-      border: none;
-      font-weight: 500;
-    }
-    .ant-btn {
-      text-align: left;
-      display: block;
-    }
-  }
-  .table-wallet {
-    position: relative;
-    height: 100%;
-    padding: 0 30px;
-    .tr-light {
-      margin-top: 30px;
-      .ant-table-wrapper .ant-table-thead > tr > th {
-        background-color: #ffffff;
+  .container-wallet {
+    .side {
+      gap: 10px;
+      padding: 0 30px;
+      .btn-method {
+        width: 100%;
+        border: none;
+        font-weight: 500;
       }
-    }
-    .tr-dark {
-      margin-top: 30px;
-      .ant-table-wrapper .ant-table-thead > tr > th {
-        background-color: #000000;
-      }
-    }
-
-    .text-coin {
-      color: #6d7484;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .text-green {
-      color: #58bd7d;
-    }
-    .text-red {
-      color: #db1313;
-    }
-    .divider {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 2px;
-      background-color: #e5e5e5;
-      z-index: 1;
-    }
-    .dark-card {
-      background-color: #18191d;
-    }
-    .light-card {
-      background-color: #f5f5f5;
-    }
-  }
-
-  .overview {
-    .title {
-      font-size: 40px;
-      font-weight: 500;
-      margin-bottom: 0;
-    }
-    .right-overview {
-      width: 60%;
-    }
-    .text-gray {
-      color: #6d7484;
-    }
-    .total {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 0px;
-    }
-    .coin {
-      border-radius: 50px;
-      padding: 5px 10px;
-      background-color: #58bd7d;
-      color: white;
-      font-weight: 500;
-    }
-    .ant-input-affix-wrapper-lg {
-      padding: 10px 20px;
-    }
-    .ant-input-affix-wrapper > input.ant-input {
-      padding-left: 10px;
-    }
-    .ant-select-selector {
-      width: 120px;
-      height: 100%;
-      padding: 22px 24px;
-    }
-    .ant-select-arrow {
-      top: 70%;
-    }
-    .cover-overview {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      .ant-btn-lg {
-        height: 50px;
-      }
-    }
-    @media (max-width: 992px) {
-      .cover-overview {
+      .ant-btn {
+        text-align: left;
         display: block;
       }
-      .right-overview {
-        width: 100%;
-        margin-top: 20px;
-      }
     }
-  }
-  .withdrawal-wrapper {
-    padding: 0 30px;
-    .step-container {
-      margin-bottom: 20px;
-      .icon-circle {
-        border: 2px solid #b1b5c3;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: #f7f7f7;
-        margin-top: 5px;
-      }
-      .icon-checked {
-        border: 2px solid #58bd7d;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        margin-top: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .icon-container {
-          width: 12px;
-          height: 12px;
-          background-color: #58bd7d;
-          border-radius: 50%;
+    .table-wallet {
+      position: relative;
+      height: 100%;
+      padding: 0 30px;
+      .tr-light {
+        margin-top: 30px;
+        .ant-table-wrapper .ant-table-thead > tr > th {
+          background-color: #ffffff;
         }
       }
-      .icon-error {
-        color: red;
-        @media (max-width: 768px) {
-          margin-right: 12px;
+      .tr-dark {
+        margin-top: 30px;
+        .ant-table-wrapper .ant-table-thead > tr > th {
+          background-color: #000000;
         }
       }
-      .icon-finish {
+
+      .text-coin {
+        color: #6d7484;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .text-green {
         color: #58bd7d;
-        @media (max-width: 768px) {
-          margin-right: 10px;
-        }
+      }
+      .text-red {
+        color: #db1313;
+      }
+      .divider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #e5e5e5;
+        z-index: 1;
+      }
+      .dark-card {
+        background-color: #18191d;
+      }
+      .light-card {
+        background-color: #f5f5f5;
+      }
+      @media (max-width: 700px) {
+        padding: 0px 0px;
       }
     }
-    .form-detail {
-      .input-coin {
+
+    .overview {
+      .title {
+        font-size: 40px;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+      .right-overview {
+        width: 60%;
+      }
+      .text-gray {
+        color: #6d7484;
+      }
+      .total {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 0px;
+      }
+      .coin {
+        border-radius: 50px;
+        padding: 5px 10px;
+        background-color: #58bd7d;
+        color: white;
+        font-weight: 500;
+      }
+      .ant-input-affix-wrapper-lg {
         padding: 10px 20px;
       }
-      .label-coin {
-        font-weight: 500;
+      .ant-input-affix-wrapper > input.ant-input {
+        padding-left: 10px;
+      }
+      .ant-select-selector {
+        width: 120px;
+        height: 100%;
+        padding: 22px 24px;
+      }
+      .ant-select-arrow {
+        top: 70%;
+      }
+      .cover-overview {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        .ant-btn-lg {
+          height: 50px;
+        }
+      }
+      @media (max-width: 992px) {
+        .cover-overview {
+          display: block;
+        }
+        .right-overview {
+          width: 100%;
+          margin-top: 20px;
+        }
+      }
+    }
+    .withdrawal-wrapper {
+      padding: 0 30px;
+      .step-container {
+        margin-bottom: 20px;
+        .icon-circle {
+          border: 2px solid #b1b5c3;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: #f7f7f7;
+          margin-top: 5px;
+        }
+        .icon-checked {
+          border: 2px solid #58bd7d;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          margin-top: 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .icon-container {
+            width: 12px;
+            height: 12px;
+            background-color: #58bd7d;
+            border-radius: 50%;
+          }
+        }
+        .icon-error {
+          color: red;
+          @media (max-width: 768px) {
+            margin-right: 12px;
+          }
+        }
+        .icon-finish {
+          color: #58bd7d;
+          @media (max-width: 768px) {
+            margin-right: 10px;
+          }
+        }
+      }
+      .form-detail {
+        .input-coin {
+          padding: 10px 20px;
+        }
+        .label-coin {
+          font-weight: 500;
+          font-size: 16px;
+        }
+        .group-btn {
+          margin-top: 20px;
+          .btn-coin {
+            width: 100%;
+          }
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
+        }
+      }
+      @media (max-width: 700px) {
+        padding: 0px 0px;
+      }
+    }
+    .confirmation-wrapper {
+      .confirmation-container {
+        padding: 0 30px;
+        .title {
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 30px;
+        }
+        .des {
+          font-weight: 500;
+        }
+        .detail {
+          margin-top: 10px;
+          .divider-center {
+            margin: 10px 0;
+            @media (max-width: 600px) {
+              margin: 5px 0;
+            }
+          }
+          .bank-info {
+            .text {
+              font-size: 14px;
+              display: flex;
+
+              align-items: center;
+              @media (max-width: 600px) {
+                font-size: 10px;
+              }
+            }
+            .image {
+              cursor: pointer;
+              @media (max-width: 600px) {
+                width: 14px;
+              }
+            }
+
+            .des {
+              color: #777e90;
+            }
+            @media (max-width: 800px) {
+              flex-direction: column;
+            }
+          }
+        }
+        .group-btn {
+          margin-top: 20px;
+          .btn-coin {
+            width: 100%;
+          }
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
+        }
+      }
+      @media (max-width: 700px) {
+        .ant-card .ant-card-body {
+          padding: 0px 0px;
+        }
+      }
+    }
+    .transaction-wrapper {
+      padding: 0 30px;
+      @media (max-width: 600px) {
+        padding: 0 10px;
+      }
+      .title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #58bd7d;
+      }
+      .title-des {
         font-size: 16px;
+        font-weight: 500;
+      }
+      .title-des.center {
+        text-align: center;
+      }
+      .text-coin {
+        font-size: 16px;
+        color: #58bd7d;
+      }
+      .divider-status {
+        margin: 10px 0;
+        @media (max-width: 600px) {
+          margin: 5px 0;
+        }
+      }
+      .status-wrapper {
+        margin-top: 20px;
+        border-radius: 20px;
+
+        .item-status {
+          @media (max-width: 600px) {
+            flex-direction: column;
+          }
+        }
+      }
+      .status-wrapper.dark {
+        background-color: #222630;
+      }
+      .status-wrapper.light {
+        background-color: white;
       }
       .group-btn {
         margin-top: 20px;
@@ -174,51 +295,25 @@
         }
       }
     }
-  }
-  .confirmation-wrapper {
-    padding: 0 30px;
-
-    .group-btn {
-      margin-top: 20px;
-      .btn-coin {
-        width: 100%;
+    @media (max-width: 992px) {
+      .divider {
+        display: none;
       }
-      @media (max-width: 768px) {
-        flex-direction: column;
-      }
-    }
-  }
-  .transaction-wrapper {
-    padding: 0 30px;
-
-    .group-btn {
-      margin-top: 20px;
-      .btn-coin {
-        width: 100%;
-      }
-      @media (max-width: 768px) {
-        flex-direction: column;
+      .side {
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 30px;
+        .btn-method {
+          width: fit-content;
+          border: none;
+          font-weight: 500;
+        }
       }
     }
-  }
-  @media (max-width: 992px) {
-    .divider {
-      display: none;
-    }
-    .side {
-      flex-direction: row;
-      justify-content: center;
-      margin-bottom: 30px;
-      .btn-method {
-        width: fit-content;
-        border: none;
-        font-weight: 500;
+    @media (max-width: 500px) {
+      .table-wallet {
+        padding: 0;
       }
-    }
-  }
-  @media (max-width: 500px) {
-    .table-wallet {
-      padding: 0;
     }
   }
 }

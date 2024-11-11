@@ -86,7 +86,7 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
                 { required: true, message: "Please enter the wallet address." },
                 { validator: addressValidator },
               ]}
-              initialValue={"0xDA39414801E7DaA0AA9c096B7Ad972e309Bd8f5K"}
+              initialValue={"0xDA39414801E7DaA0AA9c096B7Ad972e309Bd8f5f"}
             >
               <Input
                 className="input-coin"
