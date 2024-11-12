@@ -1,31 +1,64 @@
 .header-wrapper {
+  background-color: rgb(255, 255, 255);
   width: 100%;
-  .menu-header {
-    width: 100%;
-  }
-  .btn-wallet {
-    outline: solid;
-  }
-  .ant-menu-item-selected {
-    background-color: #3772ff !important;
-    color: white !important;
-  }
-  .btn-mode {
-    height: 50px;
-    width: 50px;
-  }
-  .ant-menu-item-active {
-    background-color: #3772ff !important;
-    color: white !important;
-  }
-  :where(.css-dev-only-do-not-override-apn68).ant-menu-light.ant-menu-horizontal
-    > .ant-menu-item:hover::after {
-    border-bottom: none;
+  border-bottom: 1px solid #f5f5f5;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  max-width: 1410px;
+  padding: 0 50px;
+  @media (max-width: 900px) {
+    padding: 0 20px;
   }
   .img-header {
-    height: 50px;
+    margin-right: 10px;
+    cursor: pointer;
   }
-  button {
-    border: none;
+  .btn-menu {
+    padding: 13px 15px;
+
+    font-weight: 500;
+    font-size: 14px;
+    &:hover {
+      background-color: #3772ff;
+      color: white;
+    }
   }
+  .menu-header-desktop {
+    @media (max-width: 900px) {
+      display: none;
+    }
+  }
+  .menu-header-desktop .active {
+    background-color: #3772ff;
+    .btn-menu {
+      color: white;
+    }
+  }
+  .menu-header-mobi {
+    border-top: 1px solid #f5f5f5;
+  }
+  .menu-header-mobi .active {
+    .btn-menu {
+      color: #3772ff;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+  .btn-mode {
+    padding: 13px 15px;
+    cursor: pointer;
+  }
+  .btn-mobi {
+    display: none;
+    padding: 13px 15px;
+    cursor: pointer;
+    @media (max-width: 900px) {
+      display: block;
+    }
+  }
+}
+.header-wrapper.dark {
+  background-color: black;
 }
