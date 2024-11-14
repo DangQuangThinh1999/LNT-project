@@ -1,5 +1,3 @@
-import { dataSource } from "@/pages/Home/components/TradeTable";
-import { getCoinImageUrl } from "@/pages/Home/components/TradeTable/useClumns";
 import { themeRecoil } from "@/recoil/theme";
 import { DownOutlined } from "@ant-design/icons";
 import {
@@ -10,43 +8,107 @@ import {
   Form,
   FormProps,
   Input,
+  message,
   Typography,
 } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { generalHttp } from "@/api/axiosConfig";
 import { useRecoilValue } from "recoil";
-import { IStatus } from "./Withdrawal";
+import { IDataStep, IStatus } from "./Withdrawal";
+
 interface IFillInformationProps {
   handleStepStatus: (
     stepIndex: number,
     newStatus: IStatus,
     isActive: boolean
   ) => void;
+  handleDataStep: (dataInfo: IDataStep) => void;
 }
 interface FormValues {
-  address: string;
-  token: string;
+  toAddress: string;
+  amount: string;
 }
+type TTokens = {
+  imageUrl: string;
+  symbol: string;
+  tokenID: string;
+  tokenName: string;
+  tokenAddress: string;
+};
+type TParamsTransfer = {
+  toAddress: string;
+  amount: string;
+  tokenAddress: string;
+};
+export type TConfirmationInfo = {
+  gasFee: number;
+  transactionFee: number;
+  totalBalance: number;
+  amount: number;
+  tokenAddress: string;
+  tokenSymbol: string;
+  walletAddress: string;
+  toAddress: string;
+};
 export const FillInformation: React.FC<IFillInformationProps> = ({
   handleStepStatus,
+  handleDataStep,
 }) => {
   const theme = useRecoilValue(themeRecoil);
   const [form] = Form.useForm();
+  const [tokensList, setTokensList] = useState<TTokens[]>([]);
   const [coinActive, setCoinActive] = useState("1");
-  const optionCoins = dataSource
-    .filter((item) => item.key !== coinActive)
+  const [loading, setLoading] = useState(false);
+  const getTokensList = async () => {
+    setLoading(true);
+    try {
+      const resTokensList = await generalHttp.get("tokens-list");
+      setTokensList(resTokensList.data.result);
+    } catch (error) {
+      message.error("get tokens list failed" + error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleTransferFee = async (value: TParamsTransfer) => {
+    try {
+      const resTransferFee = await generalHttp.post(
+        "api/auth/transfer-fee",
+        value
+      );
+
+      handleDataStep({
+        confirmationInfo: resTransferFee.data,
+        transactionInfo: undefined,
+      });
+    } catch (error) {
+      message.error("transfer failed" + error);
+    }
+  };
+  useEffect(() => {
+    getTokensList();
+  }, []);
+  const optionCoins = tokensList
+    .filter((item) => item.tokenID !== coinActive)
     .map((item) => ({
       label: item.symbol,
-      key: item.key,
-      icon: (
-        <img height={25} src={getCoinImageUrl(item.name)} alt={item.name} />
-      ),
-      onClick: () => setCoinActive(item.key),
+      key: item.tokenID,
+      name: item.tokenName,
+      tokenAddress: item.tokenAddress,
+      icon: <img height={25} src={item.imageUrl ?? ""} alt={item.tokenName} />,
+      onClick: () => setCoinActive(item.tokenID),
     }));
-  const activeCoin = dataSource.find((item) => item.key === coinActive);
+  const activeCoin = tokensList.find((item) => item.tokenID === coinActive);
   // Form submission handler
   const onFinish: FormProps<FormValues>["onFinish"] = async (values) => {
-    console.log(values, "validated");
+    const body = {
+      toAddress: values.toAddress,
+      amount: values.amount,
+      tokenAddress: activeCoin?.tokenAddress ?? "",
+    };
+
+    handleTransferFee(body);
     handleStepStatus(0, "finish", false);
     handleStepStatus(1, "process", true);
   };
@@ -81,12 +143,12 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
           <Flex gap={10} vertical className="form-detail">
             <Typography className="label-coin">To Address</Typography>
             <Form.Item
-              name="address"
+              name="toAddress"
               rules={[
                 { required: true, message: "Please enter the wallet address." },
                 { validator: addressValidator },
               ]}
-              initialValue={"0xDA39414801E7DaA0AA9c096B7Ad972e309Bd8f5f"}
+              initialValue={"0x6aCF65c26E6d140C8FBA2459bf4bd32ab4a7a514"}
             >
               <Input
                 className="input-coin"
@@ -96,7 +158,7 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
             </Form.Item>
             <Typography className="label-coin"> Token</Typography>
             <Form.Item
-              name="token"
+              name="amount"
               rules={[
                 { required: true, message: "Please enter the token amount." },
                 { validator: tokenValidator },
@@ -112,15 +174,20 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
                       items: optionCoins,
                     }}
                   >
-                    <Flex gap={5}>
-                      <img
-                        height={25}
-                        src={getCoinImageUrl(activeCoin?.name ?? "")}
-                        alt={activeCoin?.name ?? ""}
-                      />
-                      {activeCoin?.symbol ?? ""}
-                      <DownOutlined />
-                    </Flex>
+                    {!loading ? (
+                      <Flex gap={5}>
+                        <img
+                          loading="lazy"
+                          height={25}
+                          src={activeCoin?.imageUrl ?? ""}
+                          alt={activeCoin?.tokenName ?? ""}
+                        />
+                        {activeCoin?.symbol ?? ""}
+                        <DownOutlined />
+                      </Flex>
+                    ) : (
+                      <Button loading={loading}>...Loading</Button>
+                    )}
                   </Dropdown>
                 }
               />

@@ -2,26 +2,26 @@ import { themeRecoil } from "@/recoil/theme";
 import { Button, Card, Divider, Flex, Typography } from "antd";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useRecoilValue } from "recoil";
-import { IStatus } from "./Withdrawal";
+import { IDataStep, IStatus } from "./Withdrawal";
 interface ITransactionProps {
   handleStepStatus: (
     stepIndex: number,
     newStatus: IStatus,
     isActive: boolean
   ) => void;
+  dataStep: IDataStep;
 }
 export const Transaction: React.FC<ITransactionProps> = ({
   handleStepStatus,
+  dataStep,
 }) => {
-  const handleNextStep = () => {
-    handleStepStatus(1, "finish", false);
-    handleStepStatus(2, "process", true);
-  };
-  const handleCancel = () => {
+  const handleConfirm = () => {
+    handleStepStatus(0, "process", true);
+    handleStepStatus(1, "wait", false);
     handleStepStatus(2, "wait", false);
-    handleStepStatus(1, "process", true);
   };
   const theme = useRecoilValue(themeRecoil);
+
   return (
     <Card className={theme === "dark" ? "dark-card" : "light-card"}>
       <div className="transaction-wrapper">
@@ -31,7 +31,11 @@ export const Transaction: React.FC<ITransactionProps> = ({
             <FaCircleCheck size={30} color="#58bd7d" />
           </Flex>
           <Typography.Title className="title-des center">
-            You successfully bought 1.356 <span className="text-coin">BTC</span>{" "}
+            You have successfully transferred{" "}
+            {dataStep?.transactionInfo?.amount ?? ""}{" "}
+            <span className="text-coin">
+              {dataStep?.transactionInfo?.tokenSymbol ?? ""}
+            </span>{" "}
             for Rockie!
           </Typography.Title>
         </Flex>
@@ -47,28 +51,22 @@ export const Transaction: React.FC<ITransactionProps> = ({
             <Flex justify="space-between" className="item-status">
               <Typography className="title-des">Transaction ID</Typography>
               <Typography className="title-des">
-                0msx836930...87r398 ID
+                {dataStep?.transactionInfo?.transactionId?.slice(0, 5) +
+                  "..." +
+                  dataStep?.transactionInfo?.transactionId?.slice(-5)}
               </Typography>
             </Flex>
           </Flex>
         </Card>
         <Flex gap={10} className="group-btn">
           <Button
-            onClick={handleCancel}
-            size="large"
-            shape="round"
-            className="btn-coin"
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleNextStep}
+            onClick={handleConfirm}
             className="btn-coin"
             size="large"
             shape="round"
             type="primary"
           >
-            Let's move on!
+            Withdrawal
           </Button>
         </Flex>
       </div>

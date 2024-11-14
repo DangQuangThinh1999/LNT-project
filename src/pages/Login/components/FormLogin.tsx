@@ -57,7 +57,7 @@ export const FormLogin = () => {
           rules={[{ required: true, message: "Please input your email!" }]}
           name="email"
           label={<p className="label-input">Email/ID</p>}
-          initialValue={"dauan1129@gmail.com"}
+          initialValue={"dauan123@gmail.com"}
         >
           <Input
             className="full-width"

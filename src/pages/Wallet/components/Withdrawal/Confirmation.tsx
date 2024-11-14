@@ -1,7 +1,9 @@
 import { themeRecoil } from "@/recoil/theme";
-import { Button, Card, Divider, Flex, message, Typography } from "antd";
+import { Button, Card, Divider, Flex, message, Spin, Typography } from "antd";
 import { useRecoilValue } from "recoil";
-import { IStatus } from "./Withdrawal";
+
+import { generalHttp } from "@/api/axiosConfig";
+import { IDataStep, IStatus } from "./Withdrawal";
 
 interface IConfirmationProps {
   handleStepStatus: (
@@ -9,8 +11,16 @@ interface IConfirmationProps {
     newStatus: IStatus,
     isActive: boolean
   ) => void;
+  dataStep: IDataStep;
+  handleDataStep: (dataInfo: IDataStep) => void;
 }
+const convertScientificToDecimal = (num: number): string => {
+  if (num === 0) return "0";
 
+  const precision = Math.abs(Math.floor(Math.log10(Math.abs(num))));
+
+  return num.toFixed(precision);
+};
 interface IconCopyProps {
   handleCopy: (textToCopy: string) => void;
   textToCopy: string;
@@ -30,6 +40,8 @@ const IconCopy: React.FC<IconCopyProps> = ({ handleCopy, textToCopy }) => (
 export default IconCopy;
 export const Confirmation: React.FC<IConfirmationProps> = ({
   handleStepStatus,
+  dataStep,
+  handleDataStep,
 }) => {
   const handleCopy = (textToCopy: string) => {
     navigator.clipboard
@@ -41,7 +53,34 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
         message.error("Failed to copy text" + err);
       });
   };
-  const handleNextStepTransaction = () => {
+  const handleTransfer = async () => {
+    const body = {
+      tokenAddress: dataStep?.confirmationInfo?.tokenAddress,
+      amount: convertScientificToDecimal(
+        dataStep?.confirmationInfo?.amount ?? 0
+      ),
+      toAddress: dataStep?.confirmationInfo?.toAddress,
+    };
+    try {
+      const resTransfer = await generalHttp.post("api/auth/transfer", body);
+      const transactionData = {
+        transactionId: resTransfer?.data?.transactionId ?? "",
+        amount: convertScientificToDecimal(
+          dataStep?.confirmationInfo?.amount ?? 0
+        ),
+        tokenSymbol: dataStep?.confirmationInfo?.tokenSymbol ?? "",
+      };
+      handleDataStep({
+        transactionInfo: transactionData,
+        confirmationInfo: undefined,
+      });
+    } catch (error) {
+      message.error("transfer failed" + error);
+    }
+  };
+
+  const handleNextStepTransaction = async () => {
+    await handleTransfer();
     handleStepStatus(1, "finish", false);
     handleStepStatus(2, "process", true);
   };
@@ -58,59 +97,119 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
             Confirmation
           </Typography.Title>
 
-          <p className="des">Bank Account</p>
-          <Flex vertical className="detail">
-            <Flex justify="space-between" className="bank-info">
-              <p className="text des">Address number</p>
-              <Flex gap={10} align="center">
-                <p className="text">
-                  0xDA39414801E7DaA0AA9c096B7Ad972e309Bd8f5f
-                </p>
-                <IconCopy
-                  handleCopy={handleCopy}
-                  textToCopy=" 0xDA39414801E7DaA0AA9c096B7Ad972e309Bd8f5f"
-                />
+          <Spin
+            spinning={dataStep?.confirmationInfo === undefined ? true : false}
+          >
+            <p className="des">Bank Account</p>
+            <Flex vertical className="detail">
+              <Flex justify="space-between" className="bank-info">
+                <p className="text des">Wallet Address</p>
+                <Flex gap={10} align="center">
+                  <p className="text">
+                    {dataStep?.confirmationInfo?.walletAddress}
+                  </p>
+                  <IconCopy
+                    handleCopy={handleCopy}
+                    textToCopy={dataStep?.confirmationInfo?.tokenAddress ?? ""}
+                  />
+                </Flex>
+              </Flex>
+              <Divider className="divider-center" />
+              <Flex justify="space-between" className="bank-info">
+                <p className="text des">To Address</p>
+                <Flex gap={10} align="center">
+                  <p className="text">
+                    {dataStep?.confirmationInfo?.toAddress}
+                  </p>
+                  <IconCopy
+                    handleCopy={handleCopy}
+                    textToCopy={dataStep?.confirmationInfo?.toAddress ?? ""}
+                  />
+                </Flex>
+              </Flex>
+              <Divider className="divider-center" />
+              <Flex justify="space-between" className="bank-info">
+                <p className="text des">Token </p>
+                <Flex gap={10} align="center">
+                  <p className="text">
+                    {" "}
+                    ({dataStep?.confirmationInfo?.tokenSymbol})
+                  </p>
+                  <p className="text">
+                    {dataStep?.confirmationInfo?.tokenAddress ?? ""}
+                  </p>
+                  <IconCopy
+                    handleCopy={handleCopy}
+                    textToCopy={
+                      "(" +
+                      (dataStep?.confirmationInfo?.tokenSymbol ?? "") +
+                      ")" +
+                      dataStep?.confirmationInfo?.tokenAddress
+                    }
+                  />
+                </Flex>
+              </Flex>
+              <Divider className="divider-center" />
+              <Flex justify="space-between" className="bank-info">
+                <p className="text des"> Amount</p>
+                <Flex gap={10}>
+                  <p className="text">
+                    {convertScientificToDecimal(
+                      dataStep?.confirmationInfo?.amount ?? 0
+                    )}
+                  </p>
+                  <IconCopy
+                    handleCopy={handleCopy}
+                    textToCopy={
+                      convertScientificToDecimal(
+                        dataStep?.confirmationInfo?.amount ?? 0
+                      ) + ""
+                    }
+                  />
+                </Flex>
+              </Flex>
+              <Divider className="divider-center" />
+              <Flex justify="space-between" className="bank-info">
+                <p className="text des"> Gas Free</p>
+                <Flex gap={10}>
+                  <p className="text">
+                    {convertScientificToDecimal(
+                      dataStep?.confirmationInfo?.gasFee ?? 0
+                    )}{" "}
+                    {dataStep?.confirmationInfo?.tokenSymbol}
+                  </p>
+                  <IconCopy
+                    handleCopy={handleCopy}
+                    textToCopy={
+                      convertScientificToDecimal(
+                        dataStep?.confirmationInfo?.gasFee ?? 0
+                      ) +
+                      "" +
+                      dataStep?.confirmationInfo?.tokenSymbol
+                    }
+                  />
+                </Flex>
+              </Flex>
+              <Divider className="divider-center" />
+              <Flex justify="space-between" className="bank-info">
+                <p className="text des"> Token Balance</p>
+                <Flex gap={10}>
+                  <p className="text">
+                    {dataStep?.confirmationInfo?.totalBalance}{" "}
+                    {dataStep?.confirmationInfo?.tokenSymbol}
+                  </p>
+                  <IconCopy
+                    handleCopy={handleCopy}
+                    textToCopy={
+                      dataStep?.confirmationInfo?.totalBalance +
+                      "" +
+                      dataStep?.confirmationInfo?.tokenSymbol
+                    }
+                  />
+                </Flex>
               </Flex>
             </Flex>
-            <Divider className="divider-center" />
-            <Flex justify="space-between" className="bank-info">
-              <p className="text des"> Token</p>
-              <Flex gap={10} align="center">
-                <p className="text"> (SHIBA)</p>
-                <p className="text">
-                  0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce
-                </p>
-                <IconCopy
-                  handleCopy={handleCopy}
-                  textToCopy="(SHIBA) 0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
-                />
-              </Flex>
-            </Flex>
-            <Divider className="divider-center" />
-            <Flex justify="space-between" className="bank-info">
-              <p className="text des"> Amount</p>
-              <Flex gap={10}>
-                <p className="text">200</p>
-                <IconCopy handleCopy={handleCopy} textToCopy="200" />
-              </Flex>
-            </Flex>
-            <Divider className="divider-center" />
-            <Flex justify="space-between" className="bank-info">
-              <p className="text des"> Gas Free</p>
-              <Flex gap={10}>
-                <p className="text">20 SHIBA</p>
-                <IconCopy handleCopy={handleCopy} textToCopy="20 SHIBA" />
-              </Flex>
-            </Flex>
-            <Divider className="divider-center" />
-            <Flex justify="space-between" className="bank-info">
-              <p className="text des"> Token Balance</p>
-              <Flex gap={10}>
-                <p className="text">220 SHIBA</p>
-                <IconCopy handleCopy={handleCopy} textToCopy="220 SHIBA" />
-              </Flex>
-            </Flex>
-          </Flex>
+          </Spin>
           <Flex gap={10} className="group-btn">
             <Button
               onClick={handleCancel}

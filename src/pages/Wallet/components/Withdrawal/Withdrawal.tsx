@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { Confirmation } from "./Confirmation";
-import { FillInformation } from "./FillInformation";
+import { FillInformation, TConfirmationInfo } from "./FillInformation";
 import { Transaction } from "./Transaction";
 export type IStatus = "process" | "wait" | "finish" | "error";
 export type IStep = {
@@ -32,10 +32,22 @@ const iconStatusMap = {
   finish: <FaCheckCircle size={20} className="icon-finish" />,
   error: <IoCloseCircleSharp className="icon-error" />,
 };
-
+export interface IDataStep {
+  confirmationInfo?: TConfirmationInfo;
+  transactionInfo?: ITransactionInfo;
+}
+interface ITransactionInfo {
+  transactionId: string;
+  amount: string;
+  tokenSymbol: string;
+}
 const iconStatus = (status: IStatus) => iconStatusMap[status] || <IconCircle />;
 export const Withdrawal = () => {
   const [statusStep, setStatusStep] = useState(LIST_STEP);
+  const [dataStep, setDataStep] = useState<IDataStep>({
+    confirmationInfo: undefined,
+    transactionInfo: undefined,
+  });
   const handleStepStatus = (
     stepIndex: number,
     newStatus: IStatus,
@@ -49,7 +61,10 @@ export const Withdrawal = () => {
       )
     );
   };
-  console.log(statusStep);
+  const handleDataStep = (dataInfo: IDataStep) => {
+    setDataStep(dataInfo);
+  };
+
   return (
     <div className="withdrawal-wrapper">
       <Steps
@@ -73,13 +88,20 @@ export const Withdrawal = () => {
         ]}
       />
       {statusStep[0].isActive === true && (
-        <FillInformation handleStepStatus={handleStepStatus} />
+        <FillInformation
+          handleDataStep={handleDataStep}
+          handleStepStatus={handleStepStatus}
+        />
       )}
       {statusStep[1].isActive === true && (
-        <Confirmation handleStepStatus={handleStepStatus} />
+        <Confirmation
+          handleDataStep={handleDataStep}
+          dataStep={dataStep}
+          handleStepStatus={handleStepStatus}
+        />
       )}
       {statusStep[2].isActive === true && (
-        <Transaction handleStepStatus={handleStepStatus} />
+        <Transaction dataStep={dataStep} handleStepStatus={handleStepStatus} />
       )}
     </div>
   );
