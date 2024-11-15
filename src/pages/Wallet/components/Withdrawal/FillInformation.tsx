@@ -135,7 +135,7 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
           Withdrawal Detail
         </Typography.Title>
 
-        <Form onFinish={onFinish}>
+        <Form form={form} onFinish={onFinish}>
           <Flex gap={10} vertical className="form-detail">
             <Typography className="label-coin">To Address</Typography>
             <Form.Item
