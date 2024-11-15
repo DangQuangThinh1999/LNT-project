@@ -1,13 +1,14 @@
 import { TUser, userRecoil } from "@/recoil/user";
 import { Dropdown, Flex, MenuProps, Typography } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { CiLight } from "react-icons/ci";
 import { IoLogInOutline } from "react-icons/io5";
 import { MdClose, MdDarkMode, MdMenu } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { themeRecoil } from "../../../recoil/theme";
-import { ETheme } from "../../../recoil/type";
+
+import { themeRecoil } from "@/recoil/theme";
+import { ETheme } from "@/recoil/type";
 import "./styleHeader.scss";
 const listMenu = [
   {
@@ -57,7 +58,7 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(userRecoil);
   const [theme, setTheme] = useRecoilState(themeRecoil);
-  const [currentKey, setCurrentKey] = useState("home");
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleTheme = () => {
     const newTheme = theme === ETheme.Dark ? ETheme.Light : ETheme.Dark;
@@ -98,16 +99,12 @@ const Header = () => {
           ),
     [user.token]
   );
-
-  useEffect(() => {
+  const currentPath = useMemo(() => {
     const pathSegments = location.pathname.split("/");
-    const currentPath = pathSegments[pathSegments.length - 1];
-    if (currentPath) setCurrentKey(currentPath);
-    else setCurrentKey("home");
+    const pathActive = pathSegments[pathSegments.length - 1];
+    return pathActive || "home";
   }, [location]);
-  const onClick = (key: string) => {
-    setCurrentKey(key);
-  };
+
   const IconMenu = isOpen ? MdClose : MdMenu;
   return (
     <div className={`header-wrapper ${theme === "dark" ? "dark" : ""}`}>
@@ -125,8 +122,7 @@ const Header = () => {
               <div
                 style={{ color: "white" }}
                 key={item.key}
-                onClick={() => onClick(item.key)}
-                className={`${currentKey === item.key ? "active" : ""}`}
+                className={`${currentPath === item.key ? "active" : ""}`}
               >
                 {item.label}
               </div>
@@ -168,10 +164,9 @@ const Header = () => {
           {menu.map((item) => (
             <div
               onClick={() => {
-                onClick(item.key);
                 setIsOpen(false);
               }}
-              className={`${currentKey === item.key ? "active" : ""}`}
+              className={`${currentPath === item.key ? "active" : ""}`}
               key={item.key}
             >
               {item.label}

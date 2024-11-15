@@ -8,7 +8,7 @@ import TradeTable from "./components/TradeTable/TradeTable";
 import Transactions from "./components/Transactions/Transactions";
 import "./styled.scss";
 
-const HomePage = () => {
+export const HomePage = () => {
   return (
     <div>
       <div className="home-page-layout">
@@ -25,5 +25,3 @@ const HomePage = () => {
     </div>
   );
 };
-
-export default HomePage;

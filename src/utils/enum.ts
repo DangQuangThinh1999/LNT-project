@@ -22,3 +22,8 @@ export const METHOD_LOGIN_ARRAY = [
   METHODS_LOGIN_ENUM.Gmail,
   METHODS_LOGIN_ENUM.Mobile,
 ];
+export const enum STEP_ENUM {
+  FILL_INFO = 0,
+  CONFIRMATION = 1,
+  TRANSACTION = 2,
+}

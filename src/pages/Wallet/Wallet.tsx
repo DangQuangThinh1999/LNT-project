@@ -21,7 +21,7 @@ const items = [
     title: "Wallet",
   },
 ];
-const Wallet = () => {
+export const Wallet = () => {
   const [methodActive, setMethodActive] = useState(METHOD_WALLET_ARRAY[0]);
 
   return (
@@ -55,5 +55,3 @@ const Wallet = () => {
     </div>
   );
 };
-
-export default Wallet;

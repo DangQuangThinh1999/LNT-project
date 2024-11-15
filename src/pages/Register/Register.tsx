@@ -2,7 +2,7 @@ import { Breadcrumb, Card, Flex, Typography } from "antd";
 import { IoIosHome } from "react-icons/io";
 import { FormRegister } from "./components/FormRegister";
 import "./styled.scss";
-const Register = () => {
+export const Register = () => {
   return (
     <div className="register-page">
       <Flex className="title-register" justify="space-between" align="center">
@@ -48,5 +48,3 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;

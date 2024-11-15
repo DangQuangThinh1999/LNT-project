@@ -53,7 +53,9 @@
     .form-login {
       max-width: 690px;
       margin: auto;
-
+      .ant-form-item-label > label::before {
+        display: none;
+      }
       .btn-first {
         font-weight: 500;
         border: none;

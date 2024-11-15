@@ -1,7 +1,17 @@
 import { generalHttp } from "@/api/axiosConfig";
 import { themeRecoil } from "@/recoil/theme";
 import { CryptoToken } from "@/utils/interface";
-import { Button, Card, Flex, Input, Select, Table, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Flex,
+  Input,
+  message,
+  Select,
+  Spin,
+  Table,
+  Typography,
+} from "antd";
 import { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { useRecoilValue } from "recoil";
@@ -13,18 +23,25 @@ const optionsCoin = [
   { label: "USDT", value: "USDT" },
   { label: "USDC", value: "USDC" },
 ];
+interface IOverviewInfo {
+  totalBalance: string;
+  totalBalanceInUSD: string;
+  tokensOverViewList: CryptoToken[];
+}
 export const Overview = () => {
   const theme = useRecoilValue(themeRecoil);
   const { columns } = useColumns();
   const [loading, setLoading] = useState<boolean>(false);
-  const [tokensList, setTokensList] = useState<CryptoToken[]>();
+  const [overviewInfo, setOverviewInfo] = useState<IOverviewInfo>();
   const getInfoWallet = async () => {
     setLoading(true);
     try {
-      const walletRes = await generalHttp.get("/api/auth/overview");
-      setTokensList(walletRes.data.tokensOverViewList);
+      const overviewRes = await generalHttp.get<IOverviewInfo>(
+        "/api/auth/overview"
+      );
+      setOverviewInfo(overviewRes.data);
     } catch (error) {
-      console.log(error);
+      message.error("get overview info failed");
     } finally {
       setLoading(false);
     }
@@ -41,16 +58,18 @@ export const Overview = () => {
           </Typography.Title>
 
           <div className="cover-overview">
-            <Flex vertical gap={10}>
-              <p className="text-gray">Total Balance</p>
-              <Flex align="center" gap={5}>
-                <Typography.Title className="total" level={5}>
-                  0.79253864
-                </Typography.Title>
-                <div className="coin">BTC</div>
+            <Spin spinning={overviewInfo?.totalBalance ? false : true}>
+              <Flex vertical gap={10}>
+                <p className="text-gray">Total Balance</p>
+                <Flex align="center" gap={5}>
+                  <Typography.Title className="total" level={5}>
+                    {overviewInfo?.totalBalance}
+                  </Typography.Title>
+                  <div className="coin">BTC</div>
+                </Flex>
+                <p className="text-gray">$ {overviewInfo?.totalBalanceInUSD}</p>
               </Flex>
-              <p className="text-gray">$12,068.83</p>
-            </Flex>
+            </Spin>
             <Flex vertical gap={20} className="right-overview">
               <Flex gap={20}>
                 <Input
@@ -61,7 +80,10 @@ export const Overview = () => {
                 <Select defaultValue="USD" options={optionsCoin} />
               </Flex>
               <Button size="large" shape="round" type="primary">
-                Show balance
+                <Typography.Text strong className="text-white">
+                  {" "}
+                  Show balance
+                </Typography.Text>
               </Button>
             </Flex>
           </div>
@@ -72,7 +94,7 @@ export const Overview = () => {
         className={theme === "dark" ? "tr-dark" : "tr-light"}
         scroll={{ x: 800 }}
         columns={columns}
-        dataSource={tokensList}
+        dataSource={overviewInfo?.tokensOverViewList}
         pagination={false}
       />
     </>

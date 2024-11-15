@@ -1,9 +1,10 @@
-import Login from "@/pages/Login/Login";
-import Register from "@/pages/Register/Register";
-import Wallet from "@/pages/Wallet/Wallet";
+import { HomePage } from "@/pages/Home";
+
+import { Login } from "@/pages/Login";
+import { Register } from "@/pages/Register";
+import { Wallet } from "@/pages/Wallet";
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPage from "../components/LayoutWrapper/LayoutWrapper";
-import HomePage from "../pages/Home/Home";
 
 export const router = createBrowserRouter([
   {
@@ -13,10 +14,6 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <HomePage />,
-      },
-      {
-        path: "about",
-        element: <div>About</div>,
       },
       {
         path: "login",
@@ -40,9 +37,5 @@ export const router = createBrowserRouter([
       // { path: "404", element: <NotFoundPage /> },
       // { path: "*", element: <Redirect to="/404" /> }
     ],
-  },
-  {
-    path: "me",
-    element: <div>ME</div>,
   },
 ]);

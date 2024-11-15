@@ -14,15 +14,12 @@ import {
 import { useEffect, useState } from "react";
 
 import { generalHttp } from "@/api/axiosConfig";
+import { STEP_ENUM } from "@/utils/enum";
 import { useRecoilValue } from "recoil";
-import { IDataStep, IStatus } from "./Withdrawal";
+import { IDataStep } from "./Withdrawal";
 
 interface IFillInformationProps {
-  handleStepStatus: (
-    stepIndex: number,
-    newStatus: IStatus,
-    isActive: boolean
-  ) => void;
+  handleStepStatus: (stepNum: STEP_ENUM) => void;
   handleDataStep: (dataInfo: IDataStep) => void;
 }
 interface FormValues {
@@ -108,9 +105,8 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
       tokenAddress: activeCoin?.tokenAddress ?? "",
     };
 
-    handleTransferFee(body);
-    handleStepStatus(0, "finish", false);
-    handleStepStatus(1, "process", true);
+    await handleTransferFee(body);
+    handleStepStatus(STEP_ENUM.CONFIRMATION);
   };
 
   // Token validation rule

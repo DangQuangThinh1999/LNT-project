@@ -1,14 +1,11 @@
 import { themeRecoil } from "@/recoil/theme";
+import { STEP_ENUM } from "@/utils/enum";
 import { Button, Card, Divider, Flex, Typography } from "antd";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useRecoilValue } from "recoil";
-import { IDataStep, IStatus } from "./Withdrawal";
+import { IDataStep } from "./Withdrawal";
 interface ITransactionProps {
-  handleStepStatus: (
-    stepIndex: number,
-    newStatus: IStatus,
-    isActive: boolean
-  ) => void;
+  handleStepStatus: (stepNum: STEP_ENUM) => void;
   dataStep: IDataStep;
 }
 export const Transaction: React.FC<ITransactionProps> = ({
@@ -16,9 +13,7 @@ export const Transaction: React.FC<ITransactionProps> = ({
   dataStep,
 }) => {
   const handleConfirm = () => {
-    handleStepStatus(0, "process", true);
-    handleStepStatus(1, "wait", false);
-    handleStepStatus(2, "wait", false);
+    handleStepStatus(STEP_ENUM.FILL_INFO);
   };
   const theme = useRecoilValue(themeRecoil);
 

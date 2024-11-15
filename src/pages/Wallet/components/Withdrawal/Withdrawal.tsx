@@ -1,23 +1,25 @@
+import { STEP_ENUM } from "@/utils/enum";
 import { Steps } from "antd";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import { IoCloseCircleSharp } from "react-icons/io5";
 import { Confirmation } from "./Confirmation";
 import { FillInformation, TConfirmationInfo } from "./FillInformation";
 import { Transaction } from "./Transaction";
-export type IStatus = "process" | "wait" | "finish" | "error";
-export type IStep = {
-  isActive: boolean;
-  status: IStatus;
-};
+export type IStatus = "process" | "wait" | "finish";
 
-const LIST_STEP: IStep[] = [
+const LIST_STEP = [
   {
-    isActive: true,
-    status: "process",
+    key: STEP_ENUM.FILL_INFO,
+    title: <strong>Fill Information</strong>,
   },
-  { isActive: false, status: "wait" },
-  { isActive: false, status: "wait" },
+  {
+    key: STEP_ENUM.CONFIRMATION,
+    title: <strong>Confirmation</strong>,
+  },
+  {
+    key: STEP_ENUM.TRANSACTION,
+    title: <strong>Transaction</strong>,
+  },
 ];
 const IconCircle = () => <div className="icon-circle"></div>;
 const IconChecked = () => (
@@ -30,7 +32,7 @@ const iconStatusMap = {
   process: <IconChecked />,
   wait: <IconCircle />,
   finish: <FaCheckCircle size={20} className="icon-finish" />,
-  error: <IoCloseCircleSharp className="icon-error" />,
+  // error: <IoCloseCircleSharp className="icon-error" />,
 };
 export interface IDataStep {
   confirmationInfo?: TConfirmationInfo;
@@ -43,23 +45,13 @@ interface ITransactionInfo {
 }
 const iconStatus = (status: IStatus) => iconStatusMap[status] || <IconCircle />;
 export const Withdrawal = () => {
-  const [statusStep, setStatusStep] = useState(LIST_STEP);
+  const [step, setStep] = useState(STEP_ENUM.FILL_INFO);
   const [dataStep, setDataStep] = useState<IDataStep>({
     confirmationInfo: undefined,
     transactionInfo: undefined,
   });
-  const handleStepStatus = (
-    stepIndex: number,
-    newStatus: IStatus,
-    isActive: boolean
-  ) => {
-    setStatusStep((prev) =>
-      prev.map((step, index) =>
-        index === stepIndex
-          ? { ...step, status: newStatus, isActive: isActive }
-          : step
-      )
-    );
+  const handleStepStatus = (stepNum: STEP_ENUM) => {
+    setStep(stepNum);
   };
   const handleDataStep = (dataInfo: IDataStep) => {
     setDataStep(dataInfo);
@@ -69,38 +61,35 @@ export const Withdrawal = () => {
     <div className="withdrawal-wrapper">
       <Steps
         className="step-container"
-        items={[
-          {
-            title: <strong>Fill Information</strong>,
-            status: statusStep[0].status,
-            icon: iconStatus(statusStep[0].status),
-          },
-          {
-            title: <strong>Confirmation</strong>,
-            status: statusStep[1].status,
-            icon: iconStatus(statusStep[1].status),
-          },
-          {
-            title: <strong>Transaction Status</strong>,
-            status: statusStep[2].status,
-            icon: iconStatus(statusStep[2].status),
-          },
-        ]}
+        items={LIST_STEP.map((stepInfo, stepIndex) => {
+          const statusStep =
+            step > stepIndex
+              ? "finish"
+              : step === stepIndex
+              ? "process"
+              : "wait";
+          return {
+            ...stepInfo,
+            status: statusStep,
+            title: stepInfo.title,
+            icon: iconStatus(statusStep),
+          };
+        })}
       />
-      {statusStep[0].isActive === true && (
+      {step === STEP_ENUM.FILL_INFO && (
         <FillInformation
           handleDataStep={handleDataStep}
           handleStepStatus={handleStepStatus}
         />
       )}
-      {statusStep[1].isActive === true && (
+      {step === STEP_ENUM.CONFIRMATION && (
         <Confirmation
           handleDataStep={handleDataStep}
-          dataStep={dataStep}
+          confirmationInfo={dataStep?.confirmationInfo}
           handleStepStatus={handleStepStatus}
         />
       )}
-      {statusStep[2].isActive === true && (
+      {step === STEP_ENUM.TRANSACTION && (
         <Transaction dataStep={dataStep} handleStepStatus={handleStepStatus} />
       )}
     </div>

@@ -3,44 +3,21 @@ import { Button, Card, Divider, Flex, message, Spin, Typography } from "antd";
 import { useRecoilValue } from "recoil";
 
 import { generalHttp } from "@/api/axiosConfig";
-import { IDataStep, IStatus } from "./Withdrawal";
+import { IconCopy } from "@/common/IconCopy";
+import { STEP_ENUM } from "@/utils/enum";
+import { convertScientificToDecimal } from "@/utils/formatNumber";
+import { TConfirmationInfo } from "./FillInformation";
+import { IDataStep } from "./Withdrawal";
 
 interface IConfirmationProps {
-  handleStepStatus: (
-    stepIndex: number,
-    newStatus: IStatus,
-    isActive: boolean
-  ) => void;
-  dataStep: IDataStep;
+  handleStepStatus: (stepNum: STEP_ENUM) => void;
+  confirmationInfo?: TConfirmationInfo;
   handleDataStep: (dataInfo: IDataStep) => void;
 }
-const convertScientificToDecimal = (num: number): string => {
-  if (num === 0) return "0";
 
-  const precision = Math.abs(Math.floor(Math.log10(Math.abs(num))));
-
-  return num.toFixed(precision);
-};
-interface IconCopyProps {
-  handleCopy: (textToCopy: string) => void;
-  textToCopy: string;
-}
-
-const IconCopy: React.FC<IconCopyProps> = ({ handleCopy, textToCopy }) => (
-  <img
-    onClick={() => handleCopy(textToCopy)}
-    height={24}
-    className="image"
-    width={24}
-    src="/svg/copyCircle.svg"
-    alt="copy"
-  />
-);
-
-export default IconCopy;
 export const Confirmation: React.FC<IConfirmationProps> = ({
   handleStepStatus,
-  dataStep,
+  confirmationInfo,
   handleDataStep,
 }) => {
   const handleCopy = (textToCopy: string) => {
@@ -55,20 +32,16 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
   };
   const handleTransfer = async () => {
     const body = {
-      tokenAddress: dataStep?.confirmationInfo?.tokenAddress,
-      amount: convertScientificToDecimal(
-        dataStep?.confirmationInfo?.amount ?? 0
-      ),
-      toAddress: dataStep?.confirmationInfo?.toAddress,
+      tokenAddress: confirmationInfo?.tokenAddress,
+      amount: convertScientificToDecimal(confirmationInfo?.amount ?? 0),
+      toAddress: confirmationInfo?.toAddress,
     };
     try {
       const resTransfer = await generalHttp.post("api/auth/transfer", body);
       const transactionData = {
         transactionId: resTransfer?.data?.transactionId ?? "",
-        amount: convertScientificToDecimal(
-          dataStep?.confirmationInfo?.amount ?? 0
-        ),
-        tokenSymbol: dataStep?.confirmationInfo?.tokenSymbol ?? "",
+        amount: convertScientificToDecimal(confirmationInfo?.amount ?? 0),
+        tokenSymbol: confirmationInfo?.tokenSymbol ?? "",
       };
       handleDataStep({
         transactionInfo: transactionData,
@@ -81,12 +54,10 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
 
   const handleNextStepTransaction = async () => {
     await handleTransfer();
-    handleStepStatus(1, "finish", false);
-    handleStepStatus(2, "process", true);
+    handleStepStatus(STEP_ENUM.TRANSACTION);
   };
   const handleCancel = () => {
-    handleStepStatus(0, "process", true);
-    handleStepStatus(1, "wait", false);
+    handleStepStatus(STEP_ENUM.FILL_INFO);
   };
   const theme = useRecoilValue(themeRecoil);
   return (
@@ -97,20 +68,16 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
             Confirmation
           </Typography.Title>
 
-          <Spin
-            spinning={dataStep?.confirmationInfo === undefined ? true : false}
-          >
+          <Spin spinning={confirmationInfo === undefined ? true : false}>
             <p className="des">Bank Account</p>
             <Flex vertical className="detail">
               <Flex justify="space-between" className="bank-info">
                 <p className="text des">Wallet Address</p>
                 <Flex gap={10} align="center">
-                  <p className="text">
-                    {dataStep?.confirmationInfo?.walletAddress}
-                  </p>
+                  <p className="text">{confirmationInfo?.walletAddress}</p>
                   <IconCopy
                     handleCopy={handleCopy}
-                    textToCopy={dataStep?.confirmationInfo?.tokenAddress ?? ""}
+                    textToCopy={confirmationInfo?.tokenAddress ?? ""}
                   />
                 </Flex>
               </Flex>
@@ -118,12 +85,10 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
               <Flex justify="space-between" className="bank-info">
                 <p className="text des">To Address</p>
                 <Flex gap={10} align="center">
-                  <p className="text">
-                    {dataStep?.confirmationInfo?.toAddress}
-                  </p>
+                  <p className="text">{confirmationInfo?.toAddress}</p>
                   <IconCopy
                     handleCopy={handleCopy}
-                    textToCopy={dataStep?.confirmationInfo?.toAddress ?? ""}
+                    textToCopy={confirmationInfo?.toAddress ?? ""}
                   />
                 </Flex>
               </Flex>
@@ -131,20 +96,15 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
               <Flex justify="space-between" className="bank-info">
                 <p className="text des">Token </p>
                 <Flex gap={10} align="center">
-                  <p className="text">
-                    {" "}
-                    ({dataStep?.confirmationInfo?.tokenSymbol})
-                  </p>
-                  <p className="text">
-                    {dataStep?.confirmationInfo?.tokenAddress ?? ""}
-                  </p>
+                  <p className="text"> ({confirmationInfo?.tokenSymbol})</p>
+                  <p className="text">{confirmationInfo?.tokenAddress ?? ""}</p>
                   <IconCopy
                     handleCopy={handleCopy}
                     textToCopy={
                       "(" +
-                      (dataStep?.confirmationInfo?.tokenSymbol ?? "") +
+                      (confirmationInfo?.tokenSymbol ?? "") +
                       ")" +
-                      dataStep?.confirmationInfo?.tokenAddress
+                      confirmationInfo?.tokenAddress
                     }
                   />
                 </Flex>
@@ -154,15 +114,13 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
                 <p className="text des"> Amount</p>
                 <Flex gap={10}>
                   <p className="text">
-                    {convertScientificToDecimal(
-                      dataStep?.confirmationInfo?.amount ?? 0
-                    )}
+                    {convertScientificToDecimal(confirmationInfo?.amount ?? 0)}
                   </p>
                   <IconCopy
                     handleCopy={handleCopy}
                     textToCopy={
                       convertScientificToDecimal(
-                        dataStep?.confirmationInfo?.amount ?? 0
+                        confirmationInfo?.amount ?? 0
                       ) + ""
                     }
                   />
@@ -173,19 +131,17 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
                 <p className="text des"> Gas Free</p>
                 <Flex gap={10}>
                   <p className="text">
-                    {convertScientificToDecimal(
-                      dataStep?.confirmationInfo?.gasFee ?? 0
-                    )}{" "}
-                    {dataStep?.confirmationInfo?.tokenSymbol}
+                    {convertScientificToDecimal(confirmationInfo?.gasFee ?? 0)}{" "}
+                    {confirmationInfo?.tokenSymbol}
                   </p>
                   <IconCopy
                     handleCopy={handleCopy}
                     textToCopy={
                       convertScientificToDecimal(
-                        dataStep?.confirmationInfo?.gasFee ?? 0
+                        confirmationInfo?.gasFee ?? 0
                       ) +
                       "" +
-                      dataStep?.confirmationInfo?.tokenSymbol
+                      confirmationInfo?.tokenSymbol
                     }
                   />
                 </Flex>
@@ -195,15 +151,15 @@ export const Confirmation: React.FC<IConfirmationProps> = ({
                 <p className="text des"> Token Balance</p>
                 <Flex gap={10}>
                   <p className="text">
-                    {dataStep?.confirmationInfo?.totalBalance}{" "}
-                    {dataStep?.confirmationInfo?.tokenSymbol}
+                    {confirmationInfo?.totalBalance}{" "}
+                    {confirmationInfo?.tokenSymbol}
                   </p>
                   <IconCopy
                     handleCopy={handleCopy}
                     textToCopy={
-                      dataStep?.confirmationInfo?.totalBalance +
+                      confirmationInfo?.totalBalance +
                       "" +
-                      dataStep?.confirmationInfo?.tokenSymbol
+                      confirmationInfo?.tokenSymbol
                     }
                   />
                 </Flex>
