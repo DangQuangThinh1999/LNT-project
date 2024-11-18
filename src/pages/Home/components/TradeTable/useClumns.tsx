@@ -17,7 +17,7 @@ const StarChecked = () => {
     </div>
   );
 };
-const getCoinImageUrl = (coinName: string): string => {
+export const getCoinImageUrl = (coinName: string): string => {
   switch (coinName.toLowerCase()) {
     case "bitcoin":
       return "Banner/coins/bitcoin.png";

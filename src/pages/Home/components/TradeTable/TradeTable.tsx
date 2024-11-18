@@ -11,7 +11,7 @@ const listWallets = [
   "Gaming",
   "Music",
 ];
-const dataSource = [
+export const dataSource = [
   {
     key: "1",
     rank: 1,

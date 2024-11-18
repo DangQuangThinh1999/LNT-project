@@ -19,8 +19,8 @@ const LayoutWrapper = () => {
       }}
     >
       <div className="container-layout">
-        <Header />
         <Layout>
+          <Header />
           <Outlet></Outlet>
           <Footer />
         </Layout>

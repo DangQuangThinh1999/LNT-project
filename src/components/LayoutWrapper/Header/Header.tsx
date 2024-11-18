@@ -1,34 +1,55 @@
 import { TUser, userRecoil } from "@/recoil/user";
-import { Button, Dropdown, Flex, Menu, MenuProps } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { Dropdown, Flex, MenuProps, Typography } from "antd";
+import { useMemo, useState } from "react";
 import { CiLight } from "react-icons/ci";
 import { IoLogInOutline } from "react-icons/io5";
-import { MdDarkMode } from "react-icons/md";
+import { MdClose, MdDarkMode, MdMenu } from "react-icons/md";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { themeRecoil } from "../../../recoil/theme";
-import { ETheme } from "../../../recoil/type";
+
+import { themeRecoil } from "@/recoil/theme";
+import { ETheme } from "@/recoil/type";
 import "./styleHeader.scss";
-const listMenu: MenuProps["items"] = [
+const listMenu = [
   {
     key: "home",
-    label: <Link to="/">home</Link>,
+    label: (
+      <Link to="/">
+        <Typography className="btn-menu"> Home</Typography>
+      </Link>
+    ),
   },
   {
     key: "about",
-    label: <Link to="/about">about</Link>,
+    label: (
+      <Link to="/about">
+        <Typography className="btn-menu"> About</Typography>
+      </Link>
+    ),
   },
   {
     key: "login",
-    label: <Link to="/login">Login</Link>,
+    label: (
+      <Link to="/login">
+        <Typography className="btn-menu"> Login</Typography>
+      </Link>
+    ),
   },
   {
     key: "register",
-    label: <Link to="/register">Register</Link>,
+    label: (
+      <Link to="/register">
+        <Typography className="btn-menu"> Register</Typography>
+      </Link>
+    ),
   },
   {
     key: "wallet",
-    label: <Link to="/wallet">Wallet</Link>,
+    label: (
+      <Link to="/wallet">
+        <Typography className="btn-menu"> Wallet</Typography>
+      </Link>
+    ),
   },
 ];
 
@@ -37,7 +58,8 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(userRecoil);
   const [theme, setTheme] = useRecoilState(themeRecoil);
-  const [currentKey, setCurrentKey] = useState("home");
+
+  const [isOpen, setIsOpen] = useState(false);
   const toggleTheme = () => {
     const newTheme = theme === ETheme.Dark ? ETheme.Light : ETheme.Dark;
     setTheme(newTheme);
@@ -77,58 +99,81 @@ const Header = () => {
           ),
     [user.token]
   );
-
-  useEffect(() => {
+  const currentPath = useMemo(() => {
     const pathSegments = location.pathname.split("/");
-    const currentPath = pathSegments[pathSegments.length - 1];
-    setCurrentKey(currentPath);
+    const pathActive = pathSegments[pathSegments.length - 1];
+    return pathActive || "home";
   }, [location]);
-  const onClick: MenuProps["onClick"] = (e) => {
-    setCurrentKey(e.key);
-  };
+
+  const IconMenu = isOpen ? MdClose : MdMenu;
   return (
-    <div className="header-wrapper">
-      <Flex>
-        <Button className="img-header" type="dashed">
-          <img
-            src="https://themesflat.co/html/rockie/assets/images/logo/logo.png"
-            alt="logo"
-          />
-        </Button>
-        <Menu
-          className="menu-header"
-          theme={theme}
-          onClick={onClick}
-          selectedKeys={[currentKey]}
-          mode="horizontal"
-          items={menu}
-        />
+    <div className={`header-wrapper ${theme === "dark" ? "dark" : ""}`}>
+      <Flex justify="space-between" align="center">
+        <Flex align="center">
+          <div className="img-header">
+            <img
+              onClick={() => navigate("/")}
+              src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
+              alt="logo"
+            />
+          </div>
+          <Flex className="menu-header-desktop">
+            {menu.map((item) => (
+              <div
+                style={{ color: "white" }}
+                key={item.key}
+                className={`${currentPath === item.key ? "active" : ""}`}
+              >
+                {item.label}
+              </div>
+            ))}
+          </Flex>
+        </Flex>
 
         <Flex align="center">
-          <Button
-            className="btn-mode"
-            icon={theme === ETheme.Dark ? <MdDarkMode /> : <CiLight />}
-            onClick={toggleTheme}
-          />
+          <Flex align="center">
+            <div className="btn-mode" onClick={toggleTheme}>
+              {theme === ETheme.Dark ? (
+                <MdDarkMode color="white" />
+              ) : (
+                <CiLight color="black" />
+              )}
+            </div>
+            <div className="btn-mobi">
+              <IconMenu
+                onClick={() => setIsOpen((prev) => !prev)}
+                color={theme === "dark" ? "white" : "black"}
+              />
+            </div>
+          </Flex>
           {user.token.length > 0 && (
             <Dropdown
               menu={{ items: WalletInfo }}
               placement="bottom"
               arrow={{ pointAtCenter: true }}
             >
-              <Button
-                onClick={() => navigate("/wallet")}
-                variant="solid"
-                className="btn-wallet"
-                size="middle"
-                shape="round"
-              >
-                Wallet
-              </Button>
+              <div className="btn-menu" onClick={() => navigate("/wallet")}>
+                <Typography>Wallet</Typography>
+              </div>
             </Dropdown>
           )}
         </Flex>
       </Flex>
+      {isOpen && (
+        <Flex vertical className="menu-header-mobi">
+          {menu.map((item) => (
+            <div
+              onClick={() => {
+                setIsOpen(false);
+              }}
+              className={`${currentPath === item.key ? "active" : ""}`}
+              key={item.key}
+            >
+              {item.label}
+            </div>
+          ))}
+        </Flex>
+      )}
     </div>
   );
 };
