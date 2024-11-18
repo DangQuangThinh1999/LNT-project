@@ -11,10 +11,17 @@ export const formatNumber = (text: string) => {
     maximumFractionDigits: 2,
   });
 };
-export const convertScientificToDecimal = (num: number): string => {
+export const convertScientificToDecimal = (
+  num: number,
+  maxExponent?: number
+): string => {
   if (num === 0) return "0";
 
   const precision = Math.abs(Math.floor(Math.log10(Math.abs(num))));
+  if (maxExponent) {
+    if (precision < maxExponent) return num.toString();
+    return num.toFixed(maxExponent);
+  }
 
   return num.toFixed(precision);
 };

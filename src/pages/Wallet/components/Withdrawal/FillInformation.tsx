@@ -11,7 +11,7 @@ import {
   message,
   Typography,
 } from "antd";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { generalHttp } from "@/api/axiosConfig";
 import { STEP_ENUM } from "@/utils/enum";
@@ -48,6 +48,11 @@ export type TConfirmationInfo = {
   walletAddress: string;
   toAddress: string;
 };
+type TBalanceTokenUser = {
+  balance: number;
+  symbol: string;
+  tokenNam: string;
+};
 export const FillInformation: React.FC<IFillInformationProps> = ({
   handleStepStatus,
   handleDataStep,
@@ -56,17 +61,36 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
   const [form] = Form.useForm();
   const [tokensList, setTokensList] = useState<TTokens[]>([]);
   const [coinActive, setCoinActive] = useState("1");
+  const [balanceTokenUser, setBalanceTokenUser] = useState<TBalanceTokenUser>();
   const [loading, setLoading] = useState(false);
-  const getTokensList = async () => {
+  const getTokensList = useCallback(async () => {
     setLoading(true);
     try {
       const resTokensList = await generalHttp.get("tokens-list");
       setTokensList(resTokensList.data.result);
+      if (resTokensList.data.result.length > 0) {
+        getTokenAddress(resTokensList.data.result[0].tokenAddress);
+      }
     } catch (error) {
       message.error("get tokens list failed" + error);
     } finally {
       setLoading(false);
     }
+  }, []);
+  const getTokenAddress = async (tokenAddress?: string) => {
+    setLoading(true);
+    try {
+      const resTokenAddress = await generalHttp.get(
+        `api/auth/token-info?tokenAddress=${tokenAddress}`
+      );
+      setBalanceTokenUser(resTokenAddress.data);
+      return resTokenAddress.data;
+    } catch (error) {
+      message.error("get token address failed" + error);
+    } finally {
+      setLoading(false);
+    }
+    return 0;
   };
   const handleTransferFee = async (value: TParamsTransfer) => {
     try {
@@ -83,9 +107,7 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
       message.error("transfer failed" + error);
     }
   };
-  useEffect(() => {
-    getTokensList();
-  }, []);
+
   const optionCoins = tokensList
     .filter((item) => item.tokenID !== coinActive)
     .map((item) => ({
@@ -94,9 +116,13 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
       name: item.tokenName,
       tokenAddress: item.tokenAddress,
       icon: <img height={25} src={item.imageUrl ?? ""} alt={item.tokenName} />,
-      onClick: () => setCoinActive(item.tokenID),
+      onClick: () => {
+        setCoinActive(item.tokenID);
+        getTokenAddress(item.tokenAddress);
+      },
     }));
   const activeCoin = tokensList.find((item) => item.tokenID === coinActive);
+
   // Form submission handler
   const onFinish: FormProps<FormValues>["onFinish"] = async (values) => {
     const body = {
@@ -128,6 +154,10 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
     }
     return Promise.resolve();
   };
+
+  useEffect(() => {
+    getTokensList();
+  }, [getTokensList]);
   return (
     <Card className={theme === "dark" ? "dark-card" : "light-card"}>
       <div className="withdrawal-overview">
@@ -152,6 +182,17 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
                 placeholder="Please enter your address"
               />
             </Form.Item>
+            <Flex justify="space-between">
+              <Typography className="label-coin">Balance: </Typography>
+              <Typography className="label-coin">
+                {balanceTokenUser?.balance === 0
+                  ? "0"
+                  : parseFloat(
+                      balanceTokenUser?.balance.toFixed(5) ?? "0"
+                    ).toString()}{" "}
+                {balanceTokenUser?.symbol}
+              </Typography>
+            </Flex>
             <Typography className="label-coin"> Token</Typography>
             <Form.Item
               name="amount"
