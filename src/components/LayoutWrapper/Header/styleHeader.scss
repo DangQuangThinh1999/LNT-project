@@ -14,7 +14,11 @@
     margin-right: 10px;
     cursor: pointer;
   }
-  @mixin hover-effect {
+  .btn-menu {
+    padding: 13px 15px;
+
+    font-weight: 500;
+    font-size: 14px;
     &:hover {
       background-color: #3772ff;
       color: white;
@@ -95,6 +99,9 @@
       height: $menu-height-closed;
     }
   }
+}
+.header-wrapper.dark {
+  background-color: black;
 }
 .header-wrapper.dark {
   background-color: black;

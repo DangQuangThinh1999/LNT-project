@@ -36,7 +36,6 @@ export type TConfirmationInfo = {
   walletAddress: string;
   toAddress: string;
 };
-
 export const FillInformation: React.FC<IFillInformationProps> = ({
   handleStepStatus,
   handleDataStep,
