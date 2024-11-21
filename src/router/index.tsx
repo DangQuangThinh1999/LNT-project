@@ -1,15 +1,15 @@
+import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { HomePage } from "@/pages/Home";
 
 import { Login } from "@/pages/Login";
 import { Register } from "@/pages/Register";
 import { Wallet } from "@/pages/Wallet";
 import { createBrowserRouter } from "react-router-dom";
-import LayoutPage from "../components/LayoutWrapper/LayoutWrapper";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <LayoutPage />,
+    element: <LayoutWrapper />,
     children: [
       {
         path: "",
