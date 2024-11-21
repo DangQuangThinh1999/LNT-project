@@ -1,5 +1,6 @@
 import { Table, Typography } from "antd";
-import ListTabs from "../../../../common/ListTabs/ListTabs";
+
+import ListTabs from "@/common/ListTabs/ListTabs";
 import "./styled.scss";
 import { useColumns } from "./useClumns";
 const listWallets = [
@@ -81,7 +82,9 @@ const TradeTable = () => {
   const columns = useColumns();
   return (
     <div className="trade">
-      <Typography.Title level={2}>Market Update</Typography.Title>
+      <Typography.Title className="title-trade" level={2}>
+        Market Update
+      </Typography.Title>
       <ListTabs data={listWallets} />
       <Table
         scroll={{ x: 900 }}

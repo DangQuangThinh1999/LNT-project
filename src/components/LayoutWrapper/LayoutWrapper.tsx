@@ -8,7 +8,7 @@ import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import "./styled.scss";
 
-const LayoutWrapper = () => {
+export const LayoutWrapper = () => {
   const themeState = useRecoilValue(themeRecoil);
 
   return (
@@ -28,5 +28,3 @@ const LayoutWrapper = () => {
     </ConfigProvider>
   );
 };
-
-export default LayoutWrapper;

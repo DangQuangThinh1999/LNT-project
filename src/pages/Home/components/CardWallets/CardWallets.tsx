@@ -1,5 +1,6 @@
 import { Button, Card, Col, Flex, Row, Typography } from "antd";
-import ListTabs from "../../../../common/ListTabs/ListTabs";
+
+import ListTabs from "@/common/ListTabs/ListTabs";
 import "./styled.scss";
 const listWallets = [
   "Crypto",
@@ -45,7 +46,13 @@ const listCoin = [
 const CardWallets = () => {
   return (
     <div className="shadow-card active">
-      <Card title={<ListTabs data={listWallets} />}>
+      <Card
+        title={
+          <div className="wrapper-title-card">
+            <ListTabs data={listWallets} />
+          </div>
+        }
+      >
         <Row gutter={[20, 20]}>
           {listCoin.map((coin, index) => (
             <Col key={index} xs={24} sm={12} lg={6} md={12} xl={6}>

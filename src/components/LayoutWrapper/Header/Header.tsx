@@ -43,14 +43,14 @@ const listMenu = [
       </Link>
     ),
   },
-  {
-    key: "wallet",
-    label: (
-      <Link to="/wallet">
-        <Typography className="btn-menu"> Wallet</Typography>
-      </Link>
-    ),
-  },
+  // {
+  //   key: "wallet",
+  //   label: (
+  //     <Link to="/wallet">
+  //       <Typography className="btn-menu"> Wallet</Typography>
+  //     </Link>
+  //   ),
+  // },
 ];
 
 const Header = () => {
@@ -134,14 +134,17 @@ const Header = () => {
           <Flex align="center">
             <div className="btn-mode" onClick={toggleTheme}>
               {theme === ETheme.Dark ? (
-                <MdDarkMode color="white" />
+                <MdDarkMode size={16} color="white" />
               ) : (
-                <CiLight color="black" />
+                <CiLight size={16} color="black" />
               )}
             </div>
-            <div className="btn-mobi">
+            <div
+              className="btn-mobi"
+              onClick={() => setIsOpen((prev) => !prev)}
+            >
               <IconMenu
-                onClick={() => setIsOpen((prev) => !prev)}
+                size={16}
                 color={theme === "dark" ? "white" : "black"}
               />
             </div>
@@ -152,15 +155,18 @@ const Header = () => {
               placement="bottom"
               arrow={{ pointAtCenter: true }}
             >
-              <div className="btn-menu" onClick={() => navigate("/wallet")}>
-                <Typography>Wallet</Typography>
-              </div>
+              <Link to="/wallet">
+                <Typography className="btn-menu"> Wallet</Typography>
+              </Link>
             </Dropdown>
           )}
         </Flex>
       </Flex>
-      {isOpen && (
-        <Flex vertical className="menu-header-mobi">
+      {
+        <Flex
+          vertical
+          className={`menu-header-mobi ${isOpen ? "open" : "close"}`}
+        >
           {menu.map((item) => (
             <div
               onClick={() => {
@@ -173,7 +179,7 @@ const Header = () => {
             </div>
           ))}
         </Flex>
-      )}
+      }
     </div>
   );
 };
