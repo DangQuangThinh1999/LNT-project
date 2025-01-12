@@ -1,5 +1,6 @@
 import { Table, Typography } from "antd";
-import ListTabs from "../../../../common/ListTabs/ListTabs";
+
+import ListTabs from "@/common/ListTabs/ListTabs";
 import "./styled.scss";
 import { useColumns } from "./useClumns";
 const listWallets = [
@@ -80,7 +81,7 @@ export const dataSource = [
 const TradeTable = () => {
   const columns = useColumns();
   return (
-    <div className="trade">
+    <div className="trade-container">
       <Typography.Title level={2}>Market Update</Typography.Title>
       <ListTabs data={listWallets} />
       <Table

@@ -4,6 +4,7 @@ import { Button, Card, Col, Flex, Row } from "antd";
 import { useState } from "react";
 import { IoIosHome } from "react-icons/io";
 import { Overview } from "./components/Overview";
+import { SwapCoin } from "./components/SwapCoin/SwapCoin";
 import { Withdrawal } from "./components/Withdrawal/Withdrawal";
 import "./styled.scss";
 const items = [
@@ -49,6 +50,7 @@ export const Wallet = () => {
             <div className="divider"></div>
             {methodActive === "Overview" && <Overview />}
             {methodActive === "Withdrawal" && <Withdrawal />}
+            {methodActive === "Swap" && <SwapCoin />}
           </Col>
         </Row>
       </Card>

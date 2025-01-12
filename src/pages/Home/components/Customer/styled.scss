@@ -1,8 +1,14 @@
 .customer-container {
+  padding: 100px 50px;
+  justify-content: space-between;
+  background: white;
   h2 {
     font-size: 48px !important;
     letter-spacing: -1px;
     font-weight: 700;
+  }
+  .customer-content {
+    max-width: 400px;
   }
   .slick-dots.slick-dots-bottom li {
     background-color: gray;

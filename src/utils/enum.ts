@@ -8,6 +8,7 @@ enum METHODS_WALLET_ENUM {
   SellCrypto = "Sell Crypto",
   Transfer = "Transfer",
   Withdrawal = "Withdrawal",
+  SwapCoin = "Swap",
 }
 
 export const METHOD_WALLET_ARRAY = [
@@ -16,6 +17,7 @@ export const METHOD_WALLET_ARRAY = [
   METHODS_WALLET_ENUM.BuyCrypto,
   METHODS_WALLET_ENUM.SellCrypto,
   METHODS_WALLET_ENUM.Transfer,
+  METHODS_WALLET_ENUM.SwapCoin,
 ];
 
 export const METHOD_LOGIN_ARRAY = [

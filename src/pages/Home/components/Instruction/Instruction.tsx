@@ -17,17 +17,17 @@ const listStep = [
 ];
 const Instruction = () => {
   return (
-    <div className="instruction">
+    <div className="instruction-container">
       <Flex justify="center" align="center" vertical>
         <Typography.Title className="title" level={3}>
           How It Work
         </Typography.Title>
-        <p className="text-gray">
+        <p className="text-gray instruction-text">
           Stacks is a production-ready library of stackable content blocks built
           in React Native.
         </p>
       </Flex>
-      <Row gutter={[15, 5]}>
+      <Row gutter={[15, 5]} className="instruction-content">
         {listStep.map((step, index) => (
           <Col
             xs={24}

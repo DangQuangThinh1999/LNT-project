@@ -1,29 +1,21 @@
 import { themeRecoil } from "@/recoil/theme";
-import {
-  Button,
-  Card,
-  Flex,
-  Form,
-  FormProps,
-  Input,
-  message,
-  Typography,
-} from "antd";
+import { Button, Card, Flex, Form, FormProps, message, Typography } from "antd";
 
 import { generalHttp } from "@/api/axiosConfig";
 import { SelectTokenAmount } from "@/common/Form/SelectTokenAmount";
 import { STEP_ENUM } from "@/utils/enum";
 import { useRecoilValue } from "recoil";
-import { IDataStep } from "./Withdrawal";
+import { IDataStep } from "./SwapCoin";
 
 interface IFillInformationProps {
   handleStepStatus: (stepNum: STEP_ENUM) => void;
   handleDataStep: (dataInfo: IDataStep) => void;
 }
 interface FormValues {
-  toAddress: string;
-  amount: string;
-  tokenAddress: string;
+  fromTokenAddress: string;
+  amountFromToken: string;
+  toTokenAddress: string;
+  amountToToken: string;
 }
 
 export type TConfirmationInfo = {
@@ -36,6 +28,7 @@ export type TConfirmationInfo = {
   walletAddress: string;
   toAddress: string;
 };
+
 export const FillInformation: React.FC<IFillInformationProps> = ({
   handleStepStatus,
   handleDataStep,
@@ -61,22 +54,18 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
 
   // Form submission handler
   const onFinish: FormProps<FormValues>["onFinish"] = async (values) => {
+    console.log(values, "cccc");
     const body = {
-      toAddress: values?.toAddress,
-      amount: values?.amount,
-      tokenAddress: values?.tokenAddress,
+      fromTokenAddress: values?.fromTokenAddress,
+      amountFromToken: values?.amountFromToken,
+      toTokenAddress: values?.toTokenAddress,
+      amountToToken: values?.amountToToken,
     };
 
     await handleTransferFee(body);
     handleStepStatus(STEP_ENUM.CONFIRMATION);
   };
-  const addressValidator = (rule: any, value: string): Promise<any> => {
-    const binanceAddressPattern = /^0x[a-fA-F0-9]{40}$/; // Example pattern for an Ethereum address
-    if (!value || !binanceAddressPattern.test(value)) {
-      return Promise.reject("Please enter a valid Binance address.");
-    }
-    return Promise.resolve();
-  };
+
   return (
     <Card className={theme === "dark" ? "dark-card" : "light-card"}>
       <div className="withdrawal-overview">
@@ -86,27 +75,19 @@ export const FillInformation: React.FC<IFillInformationProps> = ({
 
         <Form form={form} onFinish={onFinish}>
           <Flex gap={10} vertical className="form-detail">
-            <Typography className="label-coin">To Address</Typography>
-            <Form.Item
-              name="toAddress"
-              rules={[
-                { required: true, message: "Please enter the wallet address." },
-                { validator: addressValidator },
-              ]}
-              initialValue={"0x6aCF65c26E6d140C8FBA2459bf4bd32ab4a7a514"}
-            >
-              <Input
-                className="input-coin"
-                size="large"
-                placeholder="Please enter your address"
-              />
-            </Form.Item>
             <SelectTokenAmount
-              nameId="amount"
               form={form}
+              nameId={"amountFromToken"}
+              nameTokenAddressId={"fromTokenAddress"}
+              labelId={"From Token"}
               isShowBalance={true}
-              labelId="Token"
-              nameTokenAddressId="tokenAddress"
+            />
+            <SelectTokenAmount
+              form={form}
+              labelId={"To Token"}
+              nameId={"amountToToken"}
+              nameTokenAddressId={"toTokenAddress"}
+              isShowBalance={false}
             />
             <Flex gap={10} className="group-btn">
               <Button

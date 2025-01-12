@@ -3,8 +3,8 @@ import { FaQuoteRight } from "react-icons/fa";
 import "./styled.scss";
 const Customer = () => {
   return (
-    <Row gutter={[20, 20]} className="customer-container">
-      <Col xs={24} lg={12} md={12} xl={12}>
+    <Row className="customer-container">
+      <Col xs={24} lg={12} md={12} xl={12} className="customer-content">
         <Typography.Title level={2}>
           Our customers love what we do
         </Typography.Title>
