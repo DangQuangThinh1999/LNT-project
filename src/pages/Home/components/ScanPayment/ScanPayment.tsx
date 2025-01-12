@@ -17,7 +17,7 @@ const listMethod = [
 ];
 const ScanPayment = () => {
   return (
-    <Row gutter={[36, 16]} className="scanPayment">
+    <Row className="scan-payment-container">
       <Col xs={24} sm={24} xl={12} md={24} lg={12}>
         <Flex gap={20} vertical>
           {listMethod.map((item, index) => {

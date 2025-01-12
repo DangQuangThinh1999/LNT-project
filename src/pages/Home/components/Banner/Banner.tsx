@@ -4,8 +4,8 @@ import "./styled.scss";
 const Banner = () => {
   return (
     <div className="banner-container">
-      <Row className="banner-content" gutter={[20, 20]}>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12} span={12}>
+      <Row className="banner-content" gutter={[20, 20]} justify="space-between">
+        <Col xs={24} sm={24} md={9} lg={9} xl={9} span={9}>
           <Flex vertical gap={20}>
             <Typography.Title level={2}>
               Buy & Sell Digital Assets In The Rockie
@@ -26,7 +26,7 @@ const Banner = () => {
             <Flex gap={30} align="center">
               {new Array(4).fill(null).map((_, j) => (
                 <img
-                  className="img-banner"
+                  className="img-banner item"
                   key={j}
                   src={`/Banner/Brand/brand${j + 1}.png`}
                   alt={`Brand ${j + 1}`}
@@ -46,5 +46,4 @@ const Banner = () => {
     </div>
   );
 };
-
 export default Banner;

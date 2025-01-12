@@ -80,7 +80,7 @@ export const dataSource = [
 const TradeTable = () => {
   const columns = useColumns();
   return (
-    <div className="trade">
+    <div className="trade-container">
       <Typography.Title level={2}>Market Update</Typography.Title>
       <ListTabs data={listWallets} />
       <Table

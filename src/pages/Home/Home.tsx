@@ -12,7 +12,7 @@ export const HomePage = () => {
   return (
     <div>
       <div className="home-page-layout">
-        <Flex vertical gap={20}>
+        <Flex vertical>
           <Banner />
           <CardWallets />
           <TradeTable />

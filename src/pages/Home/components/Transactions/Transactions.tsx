@@ -45,7 +45,7 @@ const listDecorativeImg = [
 ];
 const Transactions = () => {
   return (
-    <Row gutter={[36, 16]} className="transactions">
+    <Row className="transactions-container">
       <Col xs={24} sm={24} xl={12} md={24} lg={12}>
         <div className="pos-relative">
           {listDecorativeImg.map((item, index) => (
